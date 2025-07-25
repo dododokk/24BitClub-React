@@ -1,0 +1,56 @@
+#login{
+    width: 30%;
+    height: 70%;
+    border-radius: 30px;
+    border: 1px solid #CCC;
+    margin: 0 auto;
+}
+
+#login h2{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    color: black;
+}
+
+#input p{
+    font-size: 13px;
+    color: black;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+#input input{
+    width: 85%;
+    height: 40px;
+    margin-left: 30px;
+    font-size: 15px;
+}
+
+#idBtn{
+    width: 87%;
+    height: 40px;
+    margin-left: 30px;
+    margin-top: 30px;
+    font-size: 15px;
+    background-color: #575757;
+    color: white;
+    cursor: pointer;
+}
+
+#find{
+    text-align: center;
+    color: #8A8989;
+    font-size: 13px;
+    margin-top: 20px;
+}
+.findCur{
+    cursor: pointer;
+}
+#regis{
+    text-align: center;
+    color: #8A8989;
+    font-size: 13px;
+    margin-top: 5px;
+    cursor: pointer;
+}
