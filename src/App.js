@@ -1,17 +1,18 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from "./context/AuthContext";
-import { UserProvider } from "./context/UserContext";
+import { Routes, Route } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Nav from "./component/Nav";
 import Login from "./component/Login"
 import Board from "./component/Board"
 import Register from "./component/Register";
+import MyPage from "./component/MyPage";
 import './App.css';
 
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleHome = () => {
     navigate('/');
@@ -22,11 +23,13 @@ function App() {
       <header><h2 onClick={handleHome}>24BitClub</h2></header>
       <Nav />
 
-      <main>
+      <main className={location.pathname==="/login" || location.pathname==="/register"
+        ? "center" : "no-center"}>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Board />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </main>
 

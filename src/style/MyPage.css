@@ -1,0 +1,43 @@
+#myInfo{
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    width: 90%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+}
+
+#myInfo img{
+    width: 120px;
+    height: 120px;
+    margin-left: 50px;
+}
+
+#setting{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 50px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    margin-left: auto;
+    margin-right: 50px;
+}
+#setting #set{
+    width: 30px;
+    height: 30px;
+    margin-right: 50px;
+}
+
+#id{
+    margin-left: 50px;
+}
+#id #lv{
+    font-size: 20px;
+}
+#id #idName{
+    font-size: 30px;
+    font-weight: bold;
+}
+

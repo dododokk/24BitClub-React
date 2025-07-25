@@ -23,10 +23,21 @@ header h2{
     cursor: pointer;
 }
 
-main{
+main.center{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 1;
+    margin-top: 90px;
+    margin-bottom: 50px;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+main.no-center{
+    display: flex; 
+    justify-content: center;
     flex: 1;
     margin-top: 90px;
     margin-bottom: 50px;
