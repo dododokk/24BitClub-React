@@ -1,6 +1,7 @@
 import React, {useState, useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { AuthContext } from "../context/AuthContext";
 import "../style/Login.css";
 
 function Input(props){
@@ -14,6 +15,7 @@ function Input(props){
 
 function Login(){
     const {setUserId, setUserPw} = useContext(UserContext);
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     const [inputId, setInputId] = useState("");
     const [inputPw, setInputPw] = useState("");
     const navigate = useNavigate();
@@ -24,6 +26,8 @@ function Login(){
     const handleLogin = () => {
         setUserId(inputId);
         setInputPw(inputPw);
+        setIsLoggedIn(true);
+        navigate('/');
         //나중에 서버에 전송
     }
 
