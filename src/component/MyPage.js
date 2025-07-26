@@ -46,7 +46,7 @@ function Content(props) {
             ];
             setPosts(tempData);
         }
-    }); //props.title이나 userId 값이 바뀔 때만 실행. , [props.title, userId]
+    }, [props.title, userId]); //props.title이나 userId 값이 바뀔 때만 실행. , [props.title, userId]
 
     let content;
 
