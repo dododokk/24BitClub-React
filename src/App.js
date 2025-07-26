@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Routes, Route } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
 import Nav from "./component/Nav";
 import Login from "./component/Login"
 import Board from "./component/Board"
@@ -13,6 +14,7 @@ import './App.css';
 function App() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { isLoggedIn } = useContext(AuthContext);
 
   const handleHome = () => {
     navigate('/');
@@ -29,7 +31,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Board />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage" element={isLoggedIn ? <MyPage /> : <Board />} />
         </Routes>
       </main>
 

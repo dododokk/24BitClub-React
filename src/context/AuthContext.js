@@ -1,5 +1,5 @@
 // 전역으로 로그인 상태 관리
-import { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext();
 

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
+import { AuthContext } from "../context/AuthContext";
 import profile from "../image/profile.png";
 import setting from "../image/setting.png";
 import heart from "../image/heart.png";
