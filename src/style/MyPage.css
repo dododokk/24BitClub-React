@@ -1,3 +1,10 @@
+#mypage{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+
 #myInfo{
     border: 1px solid #ccc;
     border-radius: 15px;
@@ -41,3 +48,35 @@
     font-weight: bold;
 }
 
+#mywrite-content{
+    display: flex;
+    width: 90%;
+    height: 500px;
+    margin-top: 30px;
+    border: 1px solid #ccc;
+    flex-direction: column;
+}
+#mywrite{
+    width: 100%;
+}
+.menu-item{
+    display: inline-block;
+    flex: 1;
+    white-space: nowrap; /*줄바꿈 방지*/
+    width: 33.3333%;
+    height: 64px;
+    background: #CCC;
+    color: black;
+    cursor: pointer;
+    text-align: center;
+    line-height: 64px;
+    font-size: 20px;
+}
+.menu-item.active{
+    background-color: #353535;
+    color: white;
+    cursor: default;
+}
+article{
+    display: block;
+}
