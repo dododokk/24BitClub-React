@@ -1,7 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import profile from "../image/profile.png";
 import setting from "../image/setting.png";
+import heart from "../image/heart.png";
+import chat from "../image/chat.png";
 import "../style/MyPage.css"
 
 function Label(props) {
@@ -10,6 +12,74 @@ function Label(props) {
             onClick={() => props.onSelect(props.menu)}>
             {props.title}
         </label>
+    )
+}
+
+function Content(props) {
+    const { userId } = useContext(UserContext);
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        if (props.title === "menu1") {
+            //서버 연결
+            const tempData = [
+                { id: 1, title: "공지사항", author: userId, createdAt: "25.07.26", like: 10, comment: 2 },
+                { id: 2, title: "긴제목을만들어보기위해", author: userId, createdAt: "25.08.26", like: 5, comment: 0 }
+            ];
+            // 혹시 author id 비교해야하는 상황이 생긴다면 아래 코드.
+            // const myPosts = tempData.filter(post => post.authorId === userId);
+            setPosts(tempData);
+        }
+    }); //props.title이나 userId 값이 바뀔 때만 실행. , [props.title, userId]
+
+    let content;
+
+    if (props.title === "menu1") {
+        content = (
+            <div>
+                <hr id="bold" />
+                <div id="tag">
+                    <span className="tag-content" id="order">순서</span>
+                    <span className="tag-content" id="title">제목</span>
+                    <span className="tag-content" id="author">작성자</span>
+                    <span className="tag-content" id="date">작성일</span>
+                </div>
+                <hr id="general" />
+                {posts.length === 0 ? (
+                    <p id="empty">작성한 게시물이 없습니다.</p>
+                ) : (
+                    <ul>
+                        {posts.map(post => (
+                            <li key={post.id}>
+                                <span className="post-content order">{post.id}</span>
+                                <span className="post-content title">{post.title}</span>
+                                <span className="post-content author">{post.author}</span>
+                                <span className="post-content date">{post.createdAt}</span>
+                                <span id="wrap">
+                                    <span className="data"><img src={heart} id="heart" />{post.like}</span>
+                                    <span className="data"><img src={chat} id="chat" />{post.comment}</span>
+                                    <button id="fix">수정</button>
+                                    <button id="delete">삭제</button>
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+        );
+    }
+    else if (props.title === "menu2") {
+
+    }
+    else {
+
+    }
+
+
+    return (
+        <div id="content">
+            {content}
+        </div>
     )
 }
 
@@ -34,7 +104,7 @@ function MyPage() {
                     <Label selected={selectedMenu} menu="menu3" onSelect={setSelectedMenu} title="좋아요 누른 게시물" />
                 </div>
                 <article>
-                    {selectedMenu === "menu1" && <p>menu1</p>}
+                    {selectedMenu === "menu1" && <Content title="menu1" />}
                     {selectedMenu === "menu2" && <p>menu2</p>}
                     {selectedMenu === "menu3" && <p>menu3</p>}
                 </article>

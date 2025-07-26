@@ -4,6 +4,9 @@
     width: 100%;
     flex-direction: column;
 }
+li{
+    list-style: none;
+}
 
 #myInfo{
     border: 1px solid #ccc;
@@ -79,4 +82,102 @@
 }
 article{
     display: block;
+    overflow-y: auto;
+}
+
+/* 마이페이지 메뉴 내용 */
+#content{
+    height: 400px;
+}
+li{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+}
+#bold{
+    width: 95%;
+    border: 1.5px solid black;
+    margin-top: 30px;
+}
+.tag-content{
+    font-weight: bold;
+    font-size: 16px;
+}
+#order{margin-left: 80px;}
+#title{margin-left: 250px;}
+#author{margin-left: 300px;}
+#date{margin-left: 180px;}
+#general{
+    width: 93%;
+    border: 1px solid #CCC;
+    margin-top: 10px;
+}
+.order{
+    flex: 1;
+    text-align: center;
+}
+.title{
+    flex: 4;
+    text-align: center;
+    white-space: nowrap;
+}
+.author{
+    flex: 2;
+    text-align: center;
+}
+.date{
+    flex: 2;
+    text-align: center;
+}
+
+.post-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+}
+
+#heart{
+    width: 20px;
+    height: 20px;
+    margin-left: 30px;
+    margin-right: 10px;
+}
+#chat{
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+}
+.data{
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    margin-left: 10px;
+}
+#fix{
+    margin-left: 60px;
+    margin-right: 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+    cursor: pointer;
+}
+#delete{
+    margin-left: 5px;
+    margin-right: 10px;
+    border: 1px solid black;
+    border-radius: 15px;
+    cursor: pointer;
+}
+#fix:hover, #delete:hover{
+    background-color: #e0e0e0;
+}
+#wrap{
+    flex: 4;
+}
+#empty{
+    width: 100%;
+    text-align: center;
+    color: #a7a7a7;
 }
