@@ -30,6 +30,21 @@ function Content(props) {
             // const myPosts = tempData.filter(post => post.authorId === userId);
             setPosts(tempData);
         }
+        else if (props.title === "menu2") {
+            //서버 연결
+            const tempData = [
+                { id: 1, title: "공지사항", author: "suho-lee", createdAt: "25.07.26", like: 10, comment: 2, comContent: "안녕" },
+                { id: 2, title: "긴제목을만들어보기위해", author: "24Bit", createdAt: "25.08.26", like: 5, comment: 1, comContent: "화이팅이야" }
+            ];
+            setPosts(tempData);
+        }
+        else{
+            //서버 연결
+            const tempData = [
+
+            ];
+            setPosts(tempData);
+        }
     }); //props.title이나 userId 값이 바뀔 때만 실행. , [props.title, userId]
 
     let content;
@@ -69,10 +84,68 @@ function Content(props) {
         );
     }
     else if (props.title === "menu2") {
-
+        content = (
+            <div>
+                <hr id="bold" />
+                <div id="tag">
+                    <span className="tag-content" id="order">순서</span>
+                    <span className="tag-content" id="title">제목</span>
+                    <span className="tag-content" id="author">작성자</span>
+                    <span className="tag-content" id="date">작성일</span>
+                </div>
+                <hr id="general" />
+                {posts.length === 0 ? (
+                    <p id="empty">댓글 단 게시물이 없습니다.</p>
+                ) : (
+                    <ul>
+                        {posts.map(post => (
+                            <li key={post.id}>
+                                <span className="post-content order">{post.id}</span>
+                                <span className="post-content title">{post.title}</span>
+                                <span className="post-content author">{post.author}</span>
+                                <span className="post-content date">{post.createdAt}</span>
+                                <span id="wrap">
+                                    <span className="data"><img src={heart} id="heart" />{post.like}</span>
+                                    <span className="data"><img src={chat} id="chat" />{post.comment}</span>
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+        );
     }
     else {
-
+        content = (
+            <div>
+                <hr id="bold" />
+                <div id="tag">
+                    <span className="tag-content" id="order">순서</span>
+                    <span className="tag-content" id="title">제목</span>
+                    <span className="tag-content" id="author">작성자</span>
+                    <span className="tag-content" id="date">작성일</span>
+                </div>
+                <hr id="general" />
+                {posts.length === 0 ? (
+                    <p id="empty">좋아요 누른 게시물이 없습니다.</p>
+                ) : (
+                    <ul>
+                        {posts.map(post => (
+                            <li key={post.id}>
+                                <span className="post-content order">{post.id}</span>
+                                <span className="post-content title">{post.title}</span>
+                                <span className="post-content author">{post.author}</span>
+                                <span className="post-content date">{post.createdAt}</span>
+                                <span id="wrap">
+                                    <span className="data"><img src={heart} id="heart" />{post.like}</span>
+                                    <span className="data"><img src={chat} id="chat" />{post.comment}</span>
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
+        );
     }
 
 
@@ -105,8 +178,8 @@ function MyPage() {
                 </div>
                 <article>
                     {selectedMenu === "menu1" && <Content title="menu1" />}
-                    {selectedMenu === "menu2" && <p>menu2</p>}
-                    {selectedMenu === "menu3" && <p>menu3</p>}
+                    {selectedMenu === "menu2" && <Content title="menu2" />}
+                    {selectedMenu === "menu3" && <Content title="menu3" />}
                 </article>
             </div>
         </div>
