@@ -46,7 +46,7 @@ function Register() {
             <Input title="아이디" type="text" value={inputId} onChange={handleIdChange} />
             <Input title="비밀번호" type="password" value={inputPw} onChange={handlePwChange} />
             <Input title="비밀번호 확인" type="password" value={confirmPw} onChange={handlePwCheck} check={checkPw}
-            warning = {checkPw ? "※ 비밀번호가 일치하지 않습니다." : "일치합니다!"} />
+            warning = {confirmPw === "" ? "" : checkPw ? "※ 비밀번호가 일치하지 않습니다." : "일치합니다!"} />
             <button id="idBtn" onClick={handleRegister}>회원가입</button>
         </div>
     );
