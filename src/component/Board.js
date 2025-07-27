@@ -23,15 +23,6 @@ function Board() {
   let [mypost, getmypost] = useState(['post']);
   return (
     <div>
-      <div className="home">
-            <nav></nav>
-            <header id="header" className="header">
-                <div id="sign">
-                    <button id="login">{login[0]}</button>
-                    <button id="signup">{signup[0]}</button>
-                </div>
-            </header>
-        </div>
       <main id="main" className="main">
         <div id="content" className="content">
                 <div id="search-box">
@@ -40,6 +31,7 @@ function Board() {
                       <input type="text" name="search"/>
                     </div>
                     <button id="search-button"></button>
+                    {/* 이거 사진으로 한거 아니고 직접 도형으로 한거라 바꿔주면 좋을 것 같아여 사진이면 조금 어색해서 */}
                 </div>
                 <table border="1">
                     <thead>
@@ -107,7 +99,6 @@ function Board() {
                 </button>
             </aside>
       </main>
-      <footer id="footer" className="footer">made by 24BitClub</footer>
     </div>
     
   );

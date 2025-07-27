@@ -1,4 +1,4 @@
-.Board {
+/* .Board {
   text-align: center;
 }
 
@@ -35,9 +35,9 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 /* 전체 공통 스타일 */
-body {
+/* body {
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -46,25 +46,25 @@ html, body, header {
     height: 100%;
     margin: 0;
     padding: 0;
-}
+} */
 input {
     width: 100%;
     max-width: 400px;
     padding: 10px;
     box-sizing: border-box;
 }
-.home{
+/* .home{
   
     min-width: 840px;
-}
+} */
 /* 네비게이션 영역 */
-nav {
+/* nav {
     background-color: #333;
     height: 40px;
-}
+} */
 
 /* 헤더 영역 */
-.header {
+/* .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -74,7 +74,7 @@ nav {
     display: flex;
     justify-content: flex-end; 
     padding: 10px;
-}
+} */
 
 #sign {
     padding: 5px 10px;
