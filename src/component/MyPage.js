@@ -24,8 +24,8 @@ function Content(props) {
         if (props.title === "menu1") {
             //서버 연결
             const tempData = [
-                { id: 1, title: "공지사항", author: userId, createdAt: "25.07.26", like: 10, comment: 2 },
-                { id: 2, title: "긴제목을만들어보기위해", author: userId, createdAt: "25.08.26", like: 5, comment: 0 }
+                { id: 1, title: "공지사항", author: userId, createdAt: "25.07.26", likeCount: 10, commentCount: 2 },
+                { id: 2, title: "긴제목을만들어보기위해", author: userId, createdAt: "25.08.26", likeCount: 5, commentCount: 0 }
             ];
             // 혹시 author id 비교해야하는 상황이 생긴다면 아래 코드.
             // const myPosts = tempData.filter(post => post.authorId === userId);
@@ -34,8 +34,8 @@ function Content(props) {
         else if (props.title === "menu2") {
             //서버 연결
             const tempData = [
-                { id: 1, title: "공지사항", author: "suho-lee", createdAt: "25.07.26", like: 10, comment: 2, comContent: "안녕" },
-                { id: 2, title: "긴제목을만들어보기위해", author: "24Bit", createdAt: "25.08.26", like: 5, comment: 1, comContent: "화이팅이야" }
+                { id: 1, title: "공지사항", author: "suho-lee", createdAt: "25.07.26", likeCount: 10, commentCount: 2, comContent: "안녕" },
+                { id: 2, title: "긴제목을만들어보기위해", author: "24Bit", createdAt: "25.08.26", likeCount: 5, commentCount: 1, comContent: "화이팅이야" }
             ];
             setPosts(tempData);
         }
@@ -72,8 +72,8 @@ function Content(props) {
                                 <span className="post-content author">{post.author}</span>
                                 <span className="post-content date">{post.createdAt}</span>
                                 <span id="wrap">
-                                    <span className="data"><img src={heart} id="heart" />{post.like}</span>
-                                    <span className="data"><img src={chat} id="chat" />{post.comment}</span>
+                                    <span className="data"><img src={heart} id="heart" />{post.likeCount}</span>
+                                    <span className="data"><img src={chat} id="chat" />{post.commentCount}</span>
                                     <button id="fix">수정</button>
                                     <button id="delete">삭제</button>
                                 </span>
@@ -106,8 +106,8 @@ function Content(props) {
                                 <span className="post-content author">{post.author}</span>
                                 <span className="post-content date">{post.createdAt}</span>
                                 <span id="wrap">
-                                    <span className="data"><img src={heart} id="heart" />{post.like}</span>
-                                    <span className="data"><img src={chat} id="chat" />{post.comment}</span>
+                                    <span className="data"><img src={heart} id="heart" />{post.likeCount}</span>
+                                    <span className="data"><img src={chat} id="chat" />{post.commentCount}</span>
                                 </span>
                             </li>
                         ))}
@@ -138,8 +138,8 @@ function Content(props) {
                                 <span className="post-content author">{post.author}</span>
                                 <span className="post-content date">{post.createdAt}</span>
                                 <span id="wrap">
-                                    <span className="data"><img src={heart} id="heart" />{post.like}</span>
-                                    <span className="data"><img src={chat} id="chat" />{post.comment}</span>
+                                    <span className="data"><img src={heart} id="heart" />{post.likeCount}</span>
+                                    <span className="data"><img src={chat} id="chat" />{post.commentCount}</span>
                                 </span>
                             </li>
                         ))}
