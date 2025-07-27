@@ -1,20 +1,20 @@
-import React, {useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { AuthContext } from "../context/AuthContext";
 import "../style/Login.css";
 
-function Input(props){
-    return(
+function Input(props) {
+    return (
         <div id="input">
-        <p>{props.title}</p>
-        <input type={props.type} value={props.value} onChange={props.onChange} />
+            <p>{props.title}</p>
+            <input type={props.type} value={props.value} onChange={props.onChange} />
         </div>
     );
 }
 
-function Login(){
-    const {setUserId, setUserPw} = useContext(UserContext);
+function Login() {
+    const { setUserId, setUserPw } = useContext(UserContext);
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     const [inputId, setInputId] = useState("");
     const [inputPw, setInputPw] = useState("");
@@ -24,18 +24,20 @@ function Login(){
     const handlePwChange = (e) => setInputPw(e.target.value);
 
     const handleLogin = () => {
-        setUserId(inputId);
-        setInputPw(inputPw);
-        setIsLoggedIn(true);
-        navigate('/');
-        //나중에 서버에 전송
+        if (inputId && inputPw) {
+            setUserId(inputId);
+            setInputPw(inputPw);
+            setIsLoggedIn(true);
+            navigate('/');
+            //나중에 서버에 전송
+        }
     }
 
     const handleRegis = () => {
         navigate('/register');
     };
 
-    return(
+    return (
         <div id="login">
             <h2>로그인</h2>
             <Input title="아이디" type="text" value={inputId} onChange={handleIdChange} />
