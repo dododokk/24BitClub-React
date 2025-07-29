@@ -1,6 +1,9 @@
 // import logo from './logo.svg';
+import React, { useContext, useState, useEffect } from "react";
+import { UserContext } from "../context/UserContext";
+import { AuthContext } from "../context/AuthContext";
 import '../style/Board.css';
-import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import heart from "../image/heart.png";
 import chat from "../image/chat.png";
 import filter from "../image/filter.png";
@@ -9,6 +12,16 @@ import searchButton from "../image/search-button.png";
 import profile from "../image/profile.png";
 
 function Board() {
+  const navigate = useNavigate();
+  const { userId } = useContext(UserContext);
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    const tempData = [
+      { id: 1, title: "공지사항", author: "정화진", createdAt: "25.07.26", likeCount: 10, commentCount: 2 },
+      { id: 2, title: "긴제목을만들어보기위해", author: "tlqkf", createdAt: "25.08.26", likeCount: 5, commentCount: 0 }
+    ];
+    setPosts(tempData);
+  }, [userId]); // userId가 바뀔 때만 실행됨
 
   let [번호, a] = useState([1, 2]);
   let [title, b] = useState(['24BitClub', 'BCBPㅋㅋ']);
@@ -30,41 +43,38 @@ function Board() {
                       <img id="search-icon" src={searchIcon}/>
                       <input type="text" name="search"/>
                     </div>
-                    <button id="search-button"></button>
-                    {/* 이거 사진으로 한거 아니고 직접 도형으로 한거라 바꿔주면 좋을 것 같아여 사진이면 조금 어색해서 */}
+                    <button id="search-button">검색</button>
                 </div>
                 <table border="1">
                     <thead>
                         <tr>
                             <th>번호</th>
-                            <th>title</th>
+                            <th>제목</th>
                             <th>작성자</th>
                             <th>작성일</th>
                             <th className="filter"><img src={filter}/></th>
                         </tr>
                     </thead>
                     <tbody>
+                      {posts.length === 0 ? (
                         <tr>
-                            <td>{번호[0]}</td>
-                            <td>{title[0]}</td>
-                            <td>{작성자[0]}</td>
-                            <td>{작성일[0]}</td>
-                            <td className="meta">
-                                <span><img id="heart" src={heart}/> {likeCount[0]}</span>
-                                <span><img id="chat" src={chat}/> {commentCount[0]}</span>
-                            </td>
+                          <td colSpan="5" id="empty">글이 없습니다. 첫 작성자가 되어보셈</td>
                         </tr>
-                        {/* 추가행동 */}
-                        <tr>
-                            <td>{번호[1]}</td>
-                            <td>{title[1]}</td>
-                            <td>{작성자[1]}</td>
-                            <td>{작성일[1]}</td>
-                            <td className="meta">
-                                <span><img id="heart" src={heart}/> {likeCount[1]}</span>
-                                <span><img id="chat" src={chat}/> {commentCount[1]}</span>
-                            </td>
-                        </tr>
+                      ) : (
+                          posts.map(post => (
+                            <tr key={post.id}>
+                              <td>{post.id}</td>
+                              <td className="title" onClick={()=> navigate('/post')}>{post.title}</td>
+                              <td>{post.author}</td>
+                              <td>{post.createdAt}</td>
+                              <td className="meta">
+                                <span><img id="heart" src={heart}/> {post.likeCount}</span>
+                                <span><img id="chat" src={chat}/> {post.commentCount}</span>
+                              </td>
+                            </tr>
+                          ))
+                          
+                      )}
                     </tbody>
                 </table>
                 <div className="pagination">
@@ -90,11 +100,11 @@ function Board() {
                       
                     </div>
                     <div id='button'>
-                        <button id='mypage'>마이페이지</button>
+                        <button id='mypage' onClick={()=> navigate('/mypage')}>마이페이지</button>
                         <button id='modify'>회원정보수정</button>
                     </div>
                 </div>
-                <button id='newpost'>
+                <button id='newpost' onClick={()=> navigate('/write')}>
                   + 게시물 작성
                 </button>
             </aside>

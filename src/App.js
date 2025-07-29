@@ -8,6 +8,8 @@ import Login from "./component/Login"
 import Board from "./component/Board"
 import Register from "./component/Register";
 import MyPage from "./component/MyPage";
+import Write from "./component/Write";
+import Post from "./component/Post";
 import './App.css';
 
 
@@ -32,6 +34,9 @@ function App() {
           <Route path="/" element={<Board />} />
           <Route path="/register" element={<Register />} />
           <Route path="/mypage" element={isLoggedIn ? <MyPage /> : <Board />} />
+          <Route path="/write" element={<Write />} />
+          <Route path="/board" element={<Board />} />
+          <Route path="/post" element={<Post />} />
         </Routes>
       </main>
 
