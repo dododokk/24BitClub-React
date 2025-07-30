@@ -10,7 +10,7 @@ import Register from "./component/Register";
 import MyPage from "./component/MyPage";
 import Write from "./component/Write";
 import Post from "./component/Post";
-import styles from './App.module.css';
+import styles from './App.css';
 
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
   };
 
   return (
-    <div className={styles.App}>
+    <div className="App">
       <header><h2 onClick={handleHome}>24BitClub</h2></header>
       <Nav />
 
