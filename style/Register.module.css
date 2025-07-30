@@ -1,0 +1,51 @@
+.register{
+    width: 30%;
+    height: 70%;
+    border-radius: 30px;
+    border: 1px solid #CCC;
+    margin: 0 auto;
+    min-width: 330px;
+    min-height: 500px;
+}
+
+.register .h2{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    color: black;
+}
+.input-title{
+    font-size: 13px;
+    color: black;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+.inputdiv .input{
+    width: 85%;
+    height: 40px;
+    margin-left: 30px;
+    font-size: 15px;
+}
+
+.idBtn{
+    width: 87%;
+    height: 40px;
+    margin-left: 30px;
+    margin-top: 30px;
+    font-size: 15px;
+    background-color: #575757;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#warning{
+    font-size: 13px;
+    color: red;
+    margin-left: 15px;
+}
+#safe{
+    font-size: 13px;
+    color: green;
+    margin-left: 15px;
+}
