@@ -5,11 +5,11 @@ import profile from "../image/profile.png";
 import setting from "../image/setting.png";
 import heart from "../image/heart.png";
 import chat from "../image/chat.png";
-import "../style/MyPage.css"
+import styles from "../style/MyPage.module.css"
 
 function Label(props) {
     return (
-        <label className={`menu-item ${props.selected === props.menu ? "active" : ""}`}
+        <label className={`${styles.menuItem} ${props.selected === props.menu ? styles.active : ""}`}
             onClick={() => props.onSelect(props.menu)}>
             {props.title}
         </label>
@@ -53,29 +53,29 @@ function Content(props) {
     if (props.title === "menu1") {
         content = (
             <div>
-                <hr id="bold" />
-                <div id="tag">
-                    <span className="tag-content" id="order">순서</span>
-                    <span className="tag-content" id="title">제목</span>
-                    <span className="tag-content" id="author">작성자</span>
-                    <span className="tag-content" id="date">작성일</span>
+                <hr id={styles.bold} />
+                <div id={styles.tag}>
+                    <span className={styles.tagContent} id={styles.order}>순서</span>
+                    <span className={styles.tagContent} id={styles.title}>제목</span>
+                    <span className={styles.tagContent} id={styles.author}>작성자</span>
+                    <span className={styles.tagContent} id={styles.date}>작성일</span>
                 </div>
-                <hr id="general" />
+                <hr id={styles.general} />
                 {posts.length === 0 ? (
-                    <p id="empty">작성한 게시물이 없습니다.</p>
+                    <p id={styles.empty}>작성한 게시물이 없습니다.</p>
                 ) : (
                     <ul>
                         {posts.map(post => (
                             <li key={post.id}>
-                                <span className="post-content order">{post.id}</span>
-                                <span className="post-content title">{post.title}</span>
-                                <span className="post-content author">{post.author}</span>
-                                <span className="post-content date">{post.createdAt}</span>
-                                <span id="wrap">
-                                    <span className="data"><img src={heart} id="heart" />{post.likeCount}</span>
-                                    <span className="data"><img src={chat} id="chat" />{post.commentCount}</span>
-                                    <button id="fix">수정</button>
-                                    <button id="delete">삭제</button>
+                                <span className={`${styles.postContent} ${styles.order}`}>{post.id}</span>
+                                <span className={`${styles.postContent} ${styles.title}`}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.author}`}>{post.author}</span>
+                                <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
+                                <span id={styles.wrap}>
+                                    <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
+                                    <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
+                                    <button id={styles.fix}>수정</button>
+                                    <button id={styles.delete}>삭제</button>
                                 </span>
                             </li>
                         ))}
@@ -87,27 +87,27 @@ function Content(props) {
     else if (props.title === "menu2") {
         content = (
             <div>
-                <hr id="bold" />
-                <div id="tag">
-                    <span className="tag-content" id="order">순서</span>
-                    <span className="tag-content" id="title">제목</span>
-                    <span className="tag-content" id="author">작성자</span>
-                    <span className="tag-content" id="date">작성일</span>
+                <hr id={styles.bold} />
+                <div id={styles.tag}>
+                    <span className={styles.tagContent} id={styles.order}>순서</span>
+                    <span className={styles.tagContent} id={styles.title}>제목</span>
+                    <span className={styles.tagContent} id={styles.author}>작성자</span>
+                    <span className={styles.tagContent} id={styles.date}>작성일</span>
                 </div>
-                <hr id="general" />
+                <hr id={styles.general} />
                 {posts.length === 0 ? (
-                    <p id="empty">댓글 단 게시물이 없습니다.</p>
+                    <p id={styles.empty}>댓글 단 게시물이 없습니다.</p>
                 ) : (
                     <ul>
                         {posts.map(post => (
                             <li key={post.id}>
-                                <span className="post-content order">{post.id}</span>
-                                <span className="post-content title">{post.title}</span>
-                                <span className="post-content author">{post.author}</span>
-                                <span className="post-content date">{post.createdAt}</span>
-                                <span id="wrap">
-                                    <span className="data"><img src={heart} id="heart" />{post.likeCount}</span>
-                                    <span className="data"><img src={chat} id="chat" />{post.commentCount}</span>
+                                <span className={`${styles.postContent} ${styles.order}`}>{post.id}</span>
+                                <span className={`${styles.postContent} ${styles.title}`}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.author}`}>{post.author}</span>
+                                <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
+                                <span id={styles.wrap}>
+                                    <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
+                                    <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
                                 </span>
                             </li>
                         ))}
@@ -119,27 +119,27 @@ function Content(props) {
     else {
         content = (
             <div>
-                <hr id="bold" />
-                <div id="tag">
-                    <span className="tag-content" id="order">순서</span>
-                    <span className="tag-content" id="title">제목</span>
-                    <span className="tag-content" id="author">작성자</span>
-                    <span className="tag-content" id="date">작성일</span>
+                <hr id={styles.bold} />
+                <div id={styles.tag}>
+                    <span className={styles.tagContent} id={styles.order}>순서</span>
+                    <span className={styles.tagContent} id={styles.title}>제목</span>
+                    <span className={styles.tagContent} id={styles.author}>작성자</span>
+                    <span className={styles.tagContent} id={styles.date}>작성일</span>
                 </div>
-                <hr id="general" />
+                <hr id={styles.general} />
                 {posts.length === 0 ? (
-                    <p id="empty">좋아요 누른 게시물이 없습니다.</p>
+                    <p id={styles.empty}>좋아요 누른 게시물이 없습니다.</p>
                 ) : (
                     <ul>
                         {posts.map(post => (
                             <li key={post.id}>
-                                <span className="post-content order">{post.id}</span>
-                                <span className="post-content title">{post.title}</span>
-                                <span className="post-content author">{post.author}</span>
-                                <span className="post-content date">{post.createdAt}</span>
-                                <span id="wrap">
-                                    <span className="data"><img src={heart} id="heart" />{post.likeCount}</span>
-                                    <span className="data"><img src={chat} id="chat" />{post.commentCount}</span>
+                                <span className={`${styles.postContent} ${styles.order}`}>{post.id}</span>
+                                <span className={`${styles.postContent} ${styles.title}`}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.author}`}>{post.author}</span>
+                                <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
+                                <span id={styles.wrap}>
+                                    <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
+                                    <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
                                 </span>
                             </li>
                         ))}
@@ -151,7 +151,7 @@ function Content(props) {
 
 
     return (
-        <div id="content">
+        <div id={styles.content}>
             {content}
         </div>
     )
@@ -162,17 +162,17 @@ function MyPage() {
     const [selectedMenu, setSelectedMenu] = useState("menu1");
 
     return (
-        <div id="mypage">
-            <div id="myInfo">
-                <img src={profile} id="profile" />
-                <span id="id">
-                    <span id="lv">Lv.1</span><br />
-                    <span id="idName">{userId}</span>
+        <div id={styles.mypage}>
+            <div id={styles.myInfo}>
+                <img src={profile} id={styles.profile} />
+                <span id={styles.id}>
+                    <span id={styles.lv}>Lv.1</span><br />
+                    <span id={styles.idName}>{userId}</span>
                 </span>
-                <span id="setting"><img src={setting} id="set" /></span>
+                <span id={styles.setting}><img src={setting} id={styles.set} /></span>
             </div>
-            <div id="mywrite-content">
-                <div id="mywrite">
+            <div id={styles.mywriteContent}>
+                <div id={styles.mywrite}>
                     <Label selected={selectedMenu} menu="menu1" onSelect={setSelectedMenu} title="내 게시물" />
                     <Label selected={selectedMenu} menu="menu2" onSelect={setSelectedMenu} title="댓글 단 게시물" />
                     <Label selected={selectedMenu} menu="menu3" onSelect={setSelectedMenu} title="좋아요 누른 게시물" />

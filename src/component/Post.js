@@ -7,7 +7,7 @@ import profile from "../image/profile.png";
 import heart from "../image/heart.png";
 import chat from "../image/chat.png";
 import heartFilled from "../image/heart filled.png";
-import "../style/Post.css";
+import styles from "../style/Post.module.css";
 function Post(){
     const navigate = useNavigate();
     const { userId } = useContext(UserContext);
@@ -40,36 +40,38 @@ function Post(){
     const [liked, setLiked] = useState(false);
 
     return (
-    <main>
-        <div id="bar"></div>
-        <div className="post-container">
-            <div className="post-header">
-                <img src={authorProfile} id="author-profile"/>
-                <span className="author">{post.author}</span>
-                <button class="contents-btn" onClick={()=> navigate('/board')}>목차</button>
+    <main className={styles.main}>
+        <div className={styles.bar}></div>
+        <div className={styles['post-container']}>
+            <div className={styles['post-header']}>
+                <div className={styles.writer}>
+                    <img src={authorProfile} className={styles['author-profile']}/>
+                    <div className={styles.author}>{post.author}</div>
+                </div>
+                <button className={styles['contents-btn']} onClick={()=> navigate('/board')}>목차</button>
 
             </div>
-            <div className="post-content">
-                <div className="post-title">
-                    &nbsp;&nbsp;제목 : <span className="title">{post.title}</span>
+            <div className={styles['post-content']}>
+                <div className={styles['post-title']}>
+                    &nbsp;&nbsp;제목 : <span className={styles.title}>{post.title}</span>
                 </div>
-                <div className="post-body">
+                <div className={styles['post-body']}>
                     {post.content}
                 </div>
             </div>
-            <div className="meta">
-                <span><img id="heart" src={liked ? heartFilled : heart} onClick={handleLike}/> {post.likeCount}</span>
-                <span><img id="chat" src={chat}/> {post.commentCount}</span>
+            <div className={styles.meta}>
+                <span className={styles.span}><img className={styles.heart} src={liked ? heartFilled : heart} onClick={handleLike}/> {post.likeCount}</span>
+                <span className={styles.span}><img className={styles.chat} src={chat}/> {post.commentCount}</span>
             </div>
-            <div className="comment-section">
+            <div className={styles['comment-section']}>
                 
-                <div className="comment-list">
+                <div className={styles['comment-list']}>
                     {comments.length === 0 ?(
                         <p>작성된 댓글이 없습니다. 댓글을 써보세요 지금 당장.</p>
                     ) : (
                         comments.map(comment => (
-                            <div className="comment-item" key={comment.id}>
-                                <img src={authorProfile} alt="user" className="comment-profile" />
+                            <div className={styles['comment-item']} key={comment.id}>
+                                <img src={authorProfile} alt="user" className={styles['comment-profile']} />
                                 <strong>{comment.author}&nbsp;&nbsp;</strong>
                                 {comment.content}
                             </div>
@@ -78,9 +80,9 @@ function Post(){
                     )}
                     
                 </div>
-                <div className="comment-input-box">
-                    <input type="text" placeholder="댓글을 입력하세요..." />
-                    <button onClick={()=> navigate('/board')}>작성</button>
+                <div className={styles['comment-input-box']}>
+                    <input className={styles.commentInput} type="text" placeholder="댓글을 입력하세요..." />
+                    <button className={styles.commentButton}>작성</button>
                 </div>
             </div>
         </div>

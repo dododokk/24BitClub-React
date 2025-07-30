@@ -2,7 +2,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { AuthContext } from "../context/AuthContext";
-import '../style/Board.css';
 import { useNavigate } from "react-router-dom";
 import heart from "../image/heart.png";
 import chat from "../image/chat.png";
@@ -10,7 +9,7 @@ import filter from "../image/filter.png";
 import searchIcon from "../image/search-icon.png";
 import searchButton from "../image/search-button.png";
 import profile from "../image/profile.png";
-
+import styles from '../style/Board.module.css';
 function Board() {
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
@@ -23,27 +22,16 @@ function Board() {
     setPosts(tempData);
   }, [userId]); // userId가 바뀔 때만 실행됨
 
-  let [번호, a] = useState([1, 2]);
-  let [title, b] = useState(['24BitClub', 'BCBPㅋㅋ']);
-  let [작성자, c] = useState(['bitclub', '수호천사']);
-  let [작성일, d] = useState(['25.07.17', '25.07.23']);
-
-  let [likeCount, estate변경함수] = useState([30, 15]);
-  let [commentCount, f] = useState([2, 5]);
-  let [login, g] = useState(['로그인', '로그아웃']);
-  let [signup, h] = useState(['회원가입', '마이페이지']);
-
-  let [mypost, getmypost] = useState(['post']);
   return (
     <div>
-      <main id="main" className="main">
-        <div id="content" className="content">
-                <div id="search-box">
-                    <div id="search-bar">
-                      <img id="search-icon" src={searchIcon}/>
-                      <input type="text" name="search"/>
+      <main className={styles.main}>
+        <div className={styles.content}>
+                <div className={styles.searchBox}>
+                    <div className={styles.searchBar}>
+                      <img className={styles.searchIcon} src={searchIcon}/>
+                      <input className={styles.searchInput} type="text" name="search"/>
                     </div>
-                    <button id="search-button">검색</button>
+                    <button className={styles.searchButton}>검색</button>
                 </div>
                 <table border="1">
                     <thead>
@@ -52,24 +40,24 @@ function Board() {
                             <th>제목</th>
                             <th>작성자</th>
                             <th>작성일</th>
-                            <th className="filter"><img src={filter}/></th>
+                            <th className={styles.filter}><img src={filter}/></th>
                         </tr>
                     </thead>
                     <tbody>
                       {posts.length === 0 ? (
                         <tr>
-                          <td colSpan="5" id="empty">글이 없습니다. 첫 작성자가 되어보셈</td>
+                          <td colSpan="5" id={styles.empty}>글이 없습니다. 첫 작성자가 되어보셈</td>
                         </tr>
                       ) : (
                           posts.map(post => (
                             <tr key={post.id}>
-                              <td>{post.id}</td>
-                              <td className="title" onClick={()=> navigate('/post')}>{post.title}</td>
-                              <td>{post.author}</td>
-                              <td>{post.createdAt}</td>
-                              <td className="meta">
-                                <span><img id="heart" src={heart}/> {post.likeCount}</span>
-                                <span><img id="chat" src={chat}/> {post.commentCount}</span>
+                              <td className={styles.postId}>{post.id}</td>
+                              <td className={styles.title} onClick={()=> navigate('/post')}>{post.title}</td>
+                              <td className={styles.author}>{post.author}</td>
+                              <td className={styles.createdAt}>{post.createdAt}</td>
+                              <td className={styles.meta}>
+                                <span><img id={styles.heart} src={heart}/> {post.likeCount}</span>
+                                <span><img id={styles.chat} src={chat}/> {post.commentCount}</span>
                               </td>
                             </tr>
                           ))
@@ -77,9 +65,9 @@ function Board() {
                       )}
                     </tbody>
                 </table>
-                <div className="pagination">
+                <div className={styles.pagination}>
                     <span>이전</span>
-                    <span className="active">1</span>
+                    <span className={styles.active}>1</span>
                     <span>2</span>
                     <span>3</span>
                     <span>4</span>
@@ -89,22 +77,22 @@ function Board() {
 
 
             </div>
-            <aside className="aside">
-                <div className="mypage">
-                    <div id="info">
+          <aside className={styles.aside}>
+                <div className={styles.mypage}>
+                    <div id={styles.info}>
                       <img src={profile}/>
-                      <div id="id">
-                        <p id="level">Lv. 1</p>
-                        <p id="id-name">BitClub</p>
+                      <div id={styles.id}>
+                        <p id={styles.level}>Lv. 1</p>
+                        <p id={styles.idName}>{userId}</p>
                       </div>
                       
                     </div>
-                    <div id='button'>
-                        <button id='mypage' onClick={()=> navigate('/mypage')}>마이페이지</button>
-                        <button id='modify'>회원정보수정</button>
+                    <div id={styles.button}>
+                        <button id={styles.mypage} onClick={()=> navigate('/mypage')}>마이페이지</button>
+                        <button id={styles.modify}>회원정보수정</button>
                     </div>
                 </div>
-                <button id='newpost' onClick={()=> navigate('/write')}>
+                <button id={styles.newpost} onClick={()=> navigate('/write')}>
                   + 게시물 작성
                 </button>
             </aside>

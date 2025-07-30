@@ -2,7 +2,7 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import "../style/Nav.css";
+import styles from "../style/Nav.module.css";
 
 function Nav() {
   const navigate = useNavigate();
