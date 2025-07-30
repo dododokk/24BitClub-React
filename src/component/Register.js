@@ -7,7 +7,7 @@ function Input(props) {
         <div className={styles.inputdiv}>
             <p className={styles['input-title']}>{props.title}
                 {props.warning && (
-                <span id={props.check ? "warning" : "safe"}>
+                <span id={props.check ? styles.warning : styles.safe}>
                     {props.warning}
                 </span>
             )}</p>
