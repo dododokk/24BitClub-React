@@ -10,6 +10,7 @@ import Register from "./component/Register";
 import MyPage from "./component/MyPage";
 import Write from "./component/Write";
 import Post from "./component/Post";
+import Modify from "./component/Modify";
 import styles from './App.css';
 
 
@@ -37,6 +38,7 @@ function App() {
           <Route path="/write" element={<Write />} />
           <Route path="/board" element={<Board />} />
           <Route path="/post" element={<Post />} />
+          <Route path="/modify" element={<Modify />} />
         </Routes>
       </main>
 

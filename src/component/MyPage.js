@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { AuthContext } from "../context/AuthContext";
 import profile from "../image/profile.png";
@@ -19,6 +20,7 @@ function Label(props) {
 function Content(props) {
     const { userId } = useContext(UserContext);
     const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (props.title === "menu1") {
@@ -39,7 +41,7 @@ function Content(props) {
             ];
             setPosts(tempData);
         }
-        else{
+        else {
             //서버 연결
             const tempData = [
 
@@ -68,13 +70,13 @@ function Content(props) {
                         {posts.map(post => (
                             <li key={post.id}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{post.id}</span>
-                                <span className={`${styles.postContent} ${styles.title}`}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={()=>navigate('/post')}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.author}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
                                     <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
-                                    <button id={styles.fix}>수정</button>
+                                    <button id={styles.fix} onClick={()=>navigate('/modify')}>수정</button>
                                     <button id={styles.delete}>삭제</button>
                                 </span>
                             </li>
@@ -102,7 +104,7 @@ function Content(props) {
                         {posts.map(post => (
                             <li key={post.id}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{post.id}</span>
-                                <span className={`${styles.postContent} ${styles.title}`}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={()=>navigate('/post')}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.author}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
@@ -134,7 +136,7 @@ function Content(props) {
                         {posts.map(post => (
                             <li key={post.id}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{post.id}</span>
-                                <span className={`${styles.postContent} ${styles.title}`}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={()=>navigate('/post')}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.author}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>

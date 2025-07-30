@@ -106,9 +106,9 @@ li{
     font-weight: bold;
     font-size: 16px;
 }
-#order{margin-left: 80px;}
+#order{margin-left: 85px;}
 #title{margin-left: 250px;}
-#author{margin-left: 300px;}
+#author{margin-left: 305px;}
 #date{margin-left: 180px;}
 #general{
     width: 93%;
@@ -123,6 +123,9 @@ li{
     flex: 4;
     text-align: center;
     white-space: nowrap;
+}
+.title:hover{
+    cursor: pointer;
 }
 .author{
     flex: 2;
