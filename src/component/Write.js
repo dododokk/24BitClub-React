@@ -13,7 +13,7 @@ function Write(){
             <label for="content">내용</label>
             <div className={styles['editor-toolbar']}>
                 <select>
-                    <option>글자 크기</option>
+                    <option disabled hidden selected>글자 크기</option>
                     <option value="small">작게</option>
                     <option value="medium">보통</option>
                     <option value="large">크게</option>

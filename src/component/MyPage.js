@@ -100,6 +100,10 @@ function Content(props) {
 
     let content;
 
+    const handleDelete = (id, userId) => {
+        // 서버에 삭제 요청.
+    }
+
     if (props.title === "menu1") {
         content = (
             <div>
@@ -126,7 +130,7 @@ function Content(props) {
                                     <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
                                     <button id={styles.fix} onClick={() => navigate('/modify', { state: { id: post.id, userId: post.user.id} })}>수정</button>
                                     {/* 수정 버튼 누르면 해당 post id를 modify 페이지로 전달 */}
-                                    <button id={styles.delete}>삭제</button>
+                                    <button id={styles.delete} onClick={handleDelete(post.id, post.user.id)}>삭제</button>
                                 </span>
                             </li>
                         ))}
