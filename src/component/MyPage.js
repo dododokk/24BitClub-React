@@ -26,8 +26,32 @@ function Content(props) {
         if (props.title === "menu1") {
             //서버 연결
             const tempData = [
-                { id: 1, title: "공지사항", author: userId, createdAt: "25.07.26", likeCount: 10, commentCount: 2 },
-                { id: 2, title: "긴제목을만들어보기위해", author: userId, createdAt: "25.08.26", likeCount: 5, commentCount: 0 }
+                {
+                    id: 1,
+                    user: {
+                        id: 1,
+                        username: userId,
+                        password: "pass123",
+                    },
+                    title: "공지사항",
+                    createdAt: "2025-07-30",
+                    content: "하기싫다아ㅏ아ㅏ",
+                    likeCount: 10,
+                    commentCount: 2
+                },
+                {
+                    id: 2,
+                    user: {
+                        id: 1,
+                        username: userId,
+                        password: "pass123",
+                    },
+                    title: "24BCBP",
+                    createdAt: "2025-07-31",
+                    content: "BCBP 조롱하지 마라",
+                    likeCount: 5,
+                    commentCount: 1
+                }
             ];
             // 혹시 author id 비교해야하는 상황이 생긴다면 아래 코드.
             // const myPosts = tempData.filter(post => post.authorId === userId);
@@ -36,8 +60,32 @@ function Content(props) {
         else if (props.title === "menu2") {
             //서버 연결
             const tempData = [
-                { id: 1, title: "공지사항", author: "suho-lee", createdAt: "25.07.26", likeCount: 10, commentCount: 2, comContent: "안녕" },
-                { id: 2, title: "긴제목을만들어보기위해", author: "24Bit", createdAt: "25.08.26", likeCount: 5, commentCount: 1, comContent: "화이팅이야" }
+                {
+                    id: 3,
+                    user: {
+                        id: 1,
+                        username: "bitclub",
+                        password: "pass123",
+                    },
+                    title: "공지사항",
+                    createdAt: "2025-07-30",
+                    content: "하기싫다아ㅏ아ㅏ",
+                    likeCount: 10,
+                    commentCount: 2
+                },
+                {
+                    id: 4,
+                    user: {
+                        id: 1,
+                        username: "alice",
+                        password: "pass123",
+                    },
+                    title: "24BCBP",
+                    createdAt: "2025-07-31",
+                    content: "BCBP 조롱하지 마라",
+                    likeCount: 5,
+                    commentCount: 1
+                }
             ];
             setPosts(tempData);
         }
@@ -67,16 +115,17 @@ function Content(props) {
                     <p id={styles.empty}>작성한 게시물이 없습니다.</p>
                 ) : (
                     <ul>
-                        {posts.map(post => (
+                        {posts.map((post, index) => (
                             <li key={post.id}>
-                                <span className={`${styles.postContent} ${styles.order}`}>{post.id}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={()=>navigate('/post')}>{post.title}</span>
-                                <span className={`${styles.postContent} ${styles.author}`}>{post.author}</span>
+                                <span className={`${styles.postContent} ${styles.order}`}>{index+1}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post')}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.author}`}>{post.user.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
                                     <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
-                                    <button id={styles.fix} onClick={()=>navigate('/modify')}>수정</button>
+                                    <button id={styles.fix} onClick={() => navigate('/modify', { state: { id: post.id, userId: post.user.id} })}>수정</button>
+                                    {/* 수정 버튼 누르면 해당 post id를 modify 페이지로 전달 */}
                                     <button id={styles.delete}>삭제</button>
                                 </span>
                             </li>
@@ -101,11 +150,11 @@ function Content(props) {
                     <p id={styles.empty}>댓글 단 게시물이 없습니다.</p>
                 ) : (
                     <ul>
-                        {posts.map(post => (
+                        {posts.map((post, index) => (
                             <li key={post.id}>
-                                <span className={`${styles.postContent} ${styles.order}`}>{post.id}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={()=>navigate('/post')}>{post.title}</span>
-                                <span className={`${styles.postContent} ${styles.author}`}>{post.author}</span>
+                                <span className={`${styles.postContent} ${styles.order}`}>{index+1}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post')}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.author}`}>{post.user.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
@@ -133,11 +182,11 @@ function Content(props) {
                     <p id={styles.empty}>좋아요 누른 게시물이 없습니다.</p>
                 ) : (
                     <ul>
-                        {posts.map(post => (
+                        {posts.map((post, index) => (
                             <li key={post.id}>
-                                <span className={`${styles.postContent} ${styles.order}`}>{post.id}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={()=>navigate('/post')}>{post.title}</span>
-                                <span className={`${styles.postContent} ${styles.author}`}>{post.author}</span>
+                                <span className={`${styles.postContent} ${styles.order}`}>{index+1}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post')}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.author}`}>{post.user.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
