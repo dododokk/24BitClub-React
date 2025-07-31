@@ -2,11 +2,13 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { UserContext } from '../context/UserContext';
 import styles from "../style/Nav.module.css";
 
 function Nav() {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { setUserId, setUserPw } = useContext(UserContext);
 
   const handleLogin = () => {
     navigate('/login');
@@ -14,6 +16,8 @@ function Nav() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setUserId("");
+    setUserPw("");
     navigate('/');
   };
 

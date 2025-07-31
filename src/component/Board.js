@@ -10,9 +10,11 @@ import searchIcon from "../image/search-icon.png";
 import searchButton from "../image/search-button.png";
 import profile from "../image/profile.png";
 import styles from '../style/Board.module.css';
+
 function Board() {
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const tempData = [
@@ -79,6 +81,7 @@ function Board() {
             </div>
           <aside className={styles.aside}>
                 <div className={styles.mypage}>
+                  {!isLoggedIn && <div className={styles.overlay}><p id={styles.warning}><span id={styles.needLogin} onClick={()=>navigate('/login')}>로그인</span>이 필요한 기능입니다.</p></div>}
                     <div id={styles.info}>
                       <img src={profile}/>
                       <div id={styles.id}>
@@ -92,7 +95,7 @@ function Board() {
                         <button id={styles.modify}>회원정보수정</button>
                     </div>
                 </div>
-                <button id={styles.newpost} onClick={()=> navigate('/write')}>
+                <button id={styles.newpost} onClick={()=> {isLoggedIn ? navigate('/write') : alert("로그인이 필요한 기능입니다.")}}>
                   + 게시물 작성
                 </button>
             </aside>
