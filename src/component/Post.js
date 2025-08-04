@@ -18,7 +18,10 @@ function Post() {
     useEffect(() => {
         const tempComments = [
             { id: 1, postId: 1, content: "BCBPㅋㅋㅋㅋㅠㅠㅠ플플ㅋㅋㅋㅋㅋ키키ㅋㅋㅋ", author: "정화진", createdAt: "25.07.26" },
-            { id: 2, postId: 1, content: "프로필이미지 변수추가해라 이수호 ", author: "문효진", createdAt: "25.08.26" }
+            { id: 2, postId: 1, content: "프로필이미지 변수추가해라 이수호 ", author: "문효진", createdAt: "25.08.26" },
+            { id: 2, postId: 1, content: "댓글 스크롤바 확인 ", author: "문효진", createdAt: "25.08.26" },
+            { id: 2, postId: 1, content: "4개부터 스크롤바 ", author: "문효진", createdAt: "25.08.26" },
+            { id: 2, postId: 1, content: "슈루룽 ", author: "문효진", createdAt: "25.08.26" }
         ];
         setComments(tempComments);
     }, []); // userId가 바뀔 때만 실행됨

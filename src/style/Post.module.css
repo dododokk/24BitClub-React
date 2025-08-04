@@ -124,6 +124,8 @@
 
 .comment-list {
   margin-bottom: 15px;
+  overflow-y: auto;
+  max-height: 100px;
 }
 
 .comment-item {

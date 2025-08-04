@@ -16,6 +16,7 @@ function Board() {
   const { userId } = useContext(UserContext);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
+  
   useEffect(() => {
     const tempData = [
       {

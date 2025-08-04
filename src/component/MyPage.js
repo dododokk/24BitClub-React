@@ -27,27 +27,27 @@ function Content(props) {
             //서버 연결
             const tempData = [
                 {
-                    id: 1,
+                    id: 5,
                     user: {
                         id: 1,
                         username: userId,
                         password: "pass123",
                     },
                     title: "공지사항",
-                    createdAt: "2025-07-30",
-                    content: "하기싫다아ㅏ아ㅏ",
+                    createdAt: "2025-07-26",
+                    content: "아오진짜로 개힘들 아 엄살이아니고 아 엄살인가 모르겠는데 개빡치고 잦응나",
                     likeCount: 10,
                     commentCount: 2
                 },
                 {
-                    id: 2,
+                    id: 6,
                     user: {
-                        id: 1,
+                        id: 2,
                         username: userId,
                         password: "pass123",
                     },
-                    title: "24BCBP",
-                    createdAt: "2025-07-31",
+                    title: "긴제목을만들어보기위해",
+                    createdAt: "2025-08-26",
                     content: "BCBP 조롱하지 마라",
                     likeCount: 5,
                     commentCount: 1
@@ -122,7 +122,7 @@ function Content(props) {
                         {posts.map((post, index) => (
                             <li key={post.id}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{index+1}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post')}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { id: post.id, userId: post.user.id} })}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.user.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
