@@ -122,13 +122,13 @@ function Content(props) {
                         {posts.map((post, index) => (
                             <li key={post.id}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{index+1}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { id: post.id, userId: post.user.id} })}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: {post} })}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.user.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
                                     <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
-                                    <button id={styles.fix} onClick={() => navigate('/modify', { state: { id: post.id, userId: post.user.id} })}>수정</button>
+                                    <button id={styles.fix} onClick={() => navigate('/modify', { state: {post} })}>수정</button>
                                     {/* 수정 버튼 누르면 해당 post id를 modify 페이지로 전달 */}
                                     <button id={styles.delete} onClick={handleDelete(post.id, post.user.id)}>삭제</button>
                                 </span>
