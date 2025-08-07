@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
+import { LikeProvider } from './context/LikeContext';
+import { CommentProvider } from './context/CommentContext';
 import Nav from "./component/Nav";
 import Login from "./component/Login"
 import Board from "./component/Board"
@@ -24,26 +26,35 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <header><h2 onClick={handleHome}>24BitClub</h2></header>
-      <Nav />
+    <LikeProvider>
+      <CommentProvider>
+        <div className="App">
+          <header><h2 onClick={handleHome}>24BitClub</h2></header>
+          <Nav />
 
-      <main className={location.pathname==="/login" || location.pathname==="/register"
-        ? "center" : "no-center"}>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Board />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/mypage" element={isLoggedIn ? <MyPage /> : <Board />} />
-          <Route path="/write" element={<Write />} />
-          <Route path="/board" element={<Board />} />
-          <Route path="/post" element={<Post />} />
-          <Route path="/modify" element={<Modify />} />
-        </Routes>
-      </main>
+          <main
+            className={
+              location.pathname === "/login" || location.pathname === "/register"
+                ? "center"
+                : "no-center"
+            }
+          >
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Board />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/mypage" element={isLoggedIn ? <MyPage /> : <Board />} />
+              <Route path="/write" element={<Write />} />
+              <Route path="/board" element={<Board />} />
+              <Route path="/post" element={<Post />} />
+              <Route path="/modify" element={<Modify />} />
+            </Routes>
+          </main>
 
-      <footer />
-    </div>
+          <footer />
+        </div>
+      </CommentProvider>
+    </LikeProvider>
   );
 }
 
