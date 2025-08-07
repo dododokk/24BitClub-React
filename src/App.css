@@ -30,7 +30,7 @@ main.center{
     flex: 1;
     margin-top: 90px;
     margin-bottom: 40px;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding: 0;
     background-color: #f8f9fa;
 }
@@ -41,7 +41,7 @@ main.no-center{
     flex: 1;
     margin-top: 90px;
     margin-bottom: 40px;
-    overflow-y: auto;
+    overflow-y: hidden;
     padding: 0;
     background-color: #f8f9fa;
 }

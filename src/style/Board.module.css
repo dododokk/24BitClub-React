@@ -49,11 +49,11 @@ html, body, header {
 } */
 .main{
   padding: 10px 40px;
-  max-height: 500px;
+  max-height: 780px;
   width: 100%;
   display: flex;
   min-height: 600px;
-  min-width: 780px;
+  min-width: 80px;
   max-width: 1300px;
 }
 .searchBox{
