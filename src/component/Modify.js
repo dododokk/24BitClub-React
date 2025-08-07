@@ -69,7 +69,7 @@ function Modify() {
 
         // try {
         //     const response = await fetch(
-        //         `http://localhost:3000/api/posts/${postId}?userId=${userId}&title=${encodeURIComponent(newTitle)}`,
+        //         `/api/posts/${postId}?userId=${userId}&title=${encodeURIComponent(newTitle)}`,
         //         {
         //             method: "PUT",
         //             headers: {

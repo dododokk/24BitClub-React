@@ -144,7 +144,7 @@ function Board() {
               <button id={styles.modify}>회원정보수정</button>
             </div>
           </div>
-          <button id={styles.newpost} onClick={() => { isLoggedIn ? navigate('/write') : alert("로그인이 필요한 기능입니다.") }}>
+          <button id={styles.newpost} onClick={() => { isLoggedIn ? navigate('/write', {state: {userId}}) : alert("로그인이 필요한 기능입니다.") }}>
             + 게시물 작성
           </button>
         </aside>
