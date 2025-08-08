@@ -25,28 +25,22 @@ function Board() {
   useEffect(() => {
     const tempData = [
       {
-        id: 5,
-        user: {
-          id: 1,
-          username: "정화진",
-          password: "pass123",
-        },
-        title: "공지사항",
-        createdAt: "2025-07-26",
-        content: "아오진짜로 개힘들 아 엄살이아니고 아 엄살인가 모르겠는데 개빡치고 잦응나",
-        commentCount: 5
+        postId: 45,
+        title: "첫 번째 게시글",
+        userId: 1,
+        username: "정화진",
+        createdAt: "2025-07-30",
+        likeCount: 1,
+        commentCount: 1
       },
       {
-        id: 6,
-        user: {
-          id: 2,
-          username: "문효진",
-          password: "pass123",
-        },
+        postId: 48,
         title: "긴제목을만들어보기위해",
-        createdAt: "2025-08-26",
-        content: "BCBP 조롱하지 마라탕",
-        commentCount: 2
+        userId: 1,
+        username: "정화진",
+        createdAt: "2025-07-30",
+        likeCount: 1,
+        commentCount: 1
       }
     ];
     setPosts(tempData);
@@ -96,17 +90,23 @@ function Board() {
                 </tr>
               ) : (
                 posts.map((post, index) => {
-                  const postLike = likes.find(l => l.postId === post.id);
-                  const postComments = comments.find(c => c.postId === post.id);
+                  // const postLike = likes.find(l => l.postId === post.id);
+                  // const postComments = comments.find(c => c.postId === post.id);
                   return (
                     <tr key={post.id}>
                     <td className={styles.postId}>{index+1}</td>
-                    <td className={styles.title} onClick={() => { isLoggedIn ? navigate('/post', { state: { post} }) : alert("로그인이 필요한 기능입니다.") }}>{post.title}</td>
-                    <td className={styles.author}>{post.user.username}</td>
+                    <td className={styles.title} onClick={() => { isLoggedIn ? navigate('/post', { state: {id: post.postId, userId: post.userId} }) : alert("로그인이 필요한 기능입니다.") }}>{post.title}</td>
+                    <td className={styles.author}>{post.username}</td>
                     <td className={styles.createdAt}>{post.createdAt}</td>
                     <td className={styles.meta}>
-                      <span><img id={styles.heart} src={heart} /> {postLike ? postLike.likeCount : 0}</span>
-                      <span><img id={styles.chat} src={chat} /> {postComments ? postComments.commentCount : 0}</span>
+                      <span><img id={styles.heart} src={heart} /> 
+                      {post.likeCount}
+                      {/* {postLike ? postLike.likeCount : 0} */}
+                      </span>
+                      <span><img id={styles.chat} src={chat} /> 
+                      {post.commentCount}
+                      {/* {postComments ? postComments.commentCount : 0} */}
+                      </span>
                     </td>
                   </tr>
                   )

@@ -30,24 +30,18 @@ function Login() {
             setIsLoggedIn(true);
             navigate('/');
             //나중에 서버에 전송
+            //나중에 서버에 전송
             // try {
-            //     const response = await fetch("/api/login", {
-            //         method: "POST",
-            //         headers: {
-            //             "Content-Type": "application/json"
-            //         },
-            //         body: JSON.stringify({
-            //             username: inputId,
-            //             password: inputPw
-            //         })
+            //     const response = await fetch(`/api/users?username=${inputId}&password=${inputPw}`, {
+            //         method: "POST"
             //     });
 
             //     if (response.ok) {
             //         const data = await response.json();
 
             //         // 로그인 성공 처리
-            //         setUserId(data.user_id); // user_id는 숫자일 가능성 있음
-            //         setUserPw(inputPw);      // 필요 시 저장, 보통은 token만 저장
+            //         setUserId(data.username); // user_id는 숫자일 가능성 있음
+            //         setUserPw(data.password);      // 필요 시 저장, 보통은 token만 저장
             //         setIsLoggedIn(true);
 
             //         // 토큰 저장 (예: localStorage 또는 context)
