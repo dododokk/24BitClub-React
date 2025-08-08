@@ -27,32 +27,25 @@ function Content(props) {
             //서버 연결
             const tempData = [
                 {
-                    id: 5,
-                    user: {
-                        id: 1,
-                        username: userId,
-                        password: "pass123",
-                    },
-                    title: "공지사항",
-                    createdAt: "2025-07-26",
-                    content: "아오진짜로 개힘들 아 엄살이아니고 아 엄살인가 모르겠는데 개빡치고 잦응나",
-                    likeCount: 10,
-                    commentCount: 2
+                    "id": 45, //게시글 아이디 -> post_id
+                    "title": "첫 번째 게시글",
+                    "userId": 1,
+                    "username": "정화진",
+                    "createdAt": "2025-07-30",
+                    "likeCount": 1,
+                    "commentCount": 1
                 },
                 {
-                    id: 6,
-                    user: {
-                        id: 2,
-                        username: userId,
-                        password: "pass123",
-                    },
-                    title: "긴제목을만들어보기위해",
-                    createdAt: "2025-08-26",
-                    content: "BCBP 조롱하지 마라",
-                    likeCount: 5,
-                    commentCount: 1
+                    "id": 48,
+                    "title": "세 번째 게시글",
+                    "userId": 1,
+                    "username": "정화진",
+                    "createdAt": "2025-07-30",
+                    "likeCount": 1,
+                    "commentCount": 1
                 }
-            ];
+                // ...
+            ]
             // 혹시 author id 비교해야하는 상황이 생긴다면 아래 코드.
             // const myPosts = tempData.filter(post => post.authorId === userId);
             setPosts(tempData);
@@ -61,32 +54,25 @@ function Content(props) {
             //서버 연결
             const tempData = [
                 {
-                    id: 3,
-                    user: {
-                        id: 1,
-                        username: "bitclub",
-                        password: "pass123",
-                    },
-                    title: "공지사항",
-                    createdAt: "2025-07-30",
-                    content: "하기싫다아ㅏ아ㅏ",
-                    likeCount: 10,
-                    commentCount: 2
+                    "id": 45, //게시글 아이디 -> post_id
+                    "title": "첫 번째 게시글",
+                    "userId": 1,
+                    "username": "정화진",
+                    "createdAt": "2025-07-30",
+                    "likeCount": 1,
+                    "commentCount": 1
                 },
                 {
-                    id: 4,
-                    user: {
-                        id: 1,
-                        username: "alice",
-                        password: "pass123",
-                    },
-                    title: "24BCBP",
-                    createdAt: "2025-07-31",
-                    content: "BCBP 조롱하지 마라",
-                    likeCount: 5,
-                    commentCount: 1
+                    "id": 48,
+                    "title": "세 번째 게시글",
+                    "userId": 1,
+                    "username": "정화진",
+                    "createdAt": "2025-07-30",
+                    "likeCount": 1,
+                    "commentCount": 1
                 }
-            ];
+                // ...
+            ]
             setPosts(tempData);
         }
         else {
@@ -121,16 +107,16 @@ function Content(props) {
                     <ul>
                         {posts.map((post, index) => (
                             <li key={post.id}>
-                                <span className={`${styles.postContent} ${styles.order}`}>{index+1}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: {post} })}>{post.title}</span>
-                                <span className={`${styles.postContent} ${styles.author}`}>{post.user.username}</span>
+                                <span className={`${styles.postContent} ${styles.order}`}>{index + 1}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { id: post.id, userId: post.userId } })}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.author}`}>{post.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
                                     <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
-                                    <button id={styles.fix} onClick={() => navigate('/modify', { state: {post} })}>수정</button>
+                                    <button id={styles.fix} onClick={() => navigate('/modify', { state: { id: post.id, userId: post.userId } })}>수정</button>
                                     {/* 수정 버튼 누르면 해당 post id를 modify 페이지로 전달 */}
-                                    <button id={styles.delete} onClick={handleDelete(post.id, post.user.id)}>삭제</button>
+                                    <button id={styles.delete} onClick={handleDelete(post.id, post.userId)}>삭제</button>
                                 </span>
                             </li>
                         ))}
@@ -156,9 +142,9 @@ function Content(props) {
                     <ul>
                         {posts.map((post, index) => (
                             <li key={post.id}>
-                                <span className={`${styles.postContent} ${styles.order}`}>{index+1}</span>
+                                <span className={`${styles.postContent} ${styles.order}`}>{index + 1}</span>
                                 <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post')}>{post.title}</span>
-                                <span className={`${styles.postContent} ${styles.author}`}>{post.user.username}</span>
+                                <span className={`${styles.postContent} ${styles.author}`}>{post.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
@@ -188,9 +174,9 @@ function Content(props) {
                     <ul>
                         {posts.map((post, index) => (
                             <li key={post.id}>
-                                <span className={`${styles.postContent} ${styles.order}`}>{index+1}</span>
+                                <span className={`${styles.postContent} ${styles.order}`}>{index + 1}</span>
                                 <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post')}>{post.title}</span>
-                                <span className={`${styles.postContent} ${styles.author}`}>{post.user.username}</span>
+                                <span className={`${styles.postContent} ${styles.author}`}>{post.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>

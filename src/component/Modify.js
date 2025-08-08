@@ -7,65 +7,65 @@ function Modify() {
     // 현재 페이지의 URL 정보와 함께 이동할 때 전달된 데이터(state)를 읽을 수 있게 해줌.
     const navigate = useNavigate();
     const inputRef = useRef(null);
-    const { post } = location.state || {};
-    const [currentPost, setCurrentPost] = useState(post || {});
-    // const { id, userId } = location.state || {};
+    // const { post } = location.state || {};
+    // const [currentPost, setCurrentPost] = useState(post || {});
+    const { id, userId } = location.state || {};
 
     const [newTitle, setNewTitle] = useState("");
     const [newContent, setNewContent] = useState("");
 
-    useEffect(() => {
-        if (post) {
-            setCurrentPost(post);
-            setNewTitle(currentPost.title);
-            setNewContent(currentPost.content);
+    // useEffect(() => {
+    //     if (post) {
+    //         setCurrentPost(post);
+    //         setNewTitle(currentPost.title);
+    //         setNewContent(currentPost.content);
 
-            if (inputRef.current) {
-                inputRef.current.innerHTML = post.content;
+    //         if (inputRef.current) {
+    //             inputRef.current.innerHTML = post.content;
+    //         }
+    //     }
+    // }, [post]);
+    useEffect(() => {
+        if (id && userId) {
+            //id랑 userId 넘기고 해당 포스트 내용 받기.
+            const tempData = [
+                {
+                    "id": 45, //게시글 아이디 -> post_id
+                    "title": "첫 번째 게시글",
+                    "userId": 1,
+                    "username": "정화진",
+                    "content": "바부",
+                    "createdAt": "2025-07-30",
+                    "likeCount": 1,
+                    "commentCount": 1
+                },
+                {
+                    "id": 48,
+                    "title": "세 번째 게시글",
+                    "userId": 1,
+                    "username": "정화진",
+                    "content": "일해라 이수호 문효진",
+                    "createdAt": "2025-07-30",
+                    "likeCount": 1,
+                    "commentCount": 1
+                }
+                // ...
+            ]
+            const targetPost = tempData.find((p) => p.id === id);
+            setNewTitle(targetPost.title);
+            setNewContent(targetPost.content);
+
+            if(inputRef.current){
+                inputRef.current.innerHTML = targetPost.content;
             }
         }
-    }, [post]);
-    // useEffect(() => {
-    //     if (id && userId) {
-    //         //id랑 userId 넘기고 해당 포스트 내용 받기.
-    //         const tempData = [
-    //             {
-    //                 id: 5,
-    //                 user: {
-    //                     id: 1,
-    //                     username: "정화진",
-    //                     password: "pass123",
-    //                 },
-    //                 title: "공지사항",
-    //                 createdAt: "2025-07-26",
-    //                 content: "아오진짜로 개힘들 아 엄살이아니고 아 엄살인가 모르겠는데 개빡치고 잦응나",
-    //                 likeCount: 10,
-    //                 commentCount: 2
-    //             },
-    //             {
-    //                 id: 6,
-    //                 user: {
-    //                     id: 2,
-    //                     username: "tlqkf",
-    //                     password: "pass123",
-    //                 },
-    //                 title: "긴제목을만들어보기위해",
-    //                 createdAt: "2025-08-26",
-    //                 content: "BCBP 조롱하지 마라",
-    //                 likeCount: 5,
-    //                 commentCount: 1
-    //             }
-    //         ];
-    //         const targetPost = tempData.find((p) => p.id === id);
-    //         setNewTitle(targetPost.title);
-    //         setNewContent(targetPost.content);
-    //     }
-    // },[]);
+    }, []);
 
     const handleSubmit = async () => {
         setNewContent(inputRef.current.innerHTML);
-        const postId = currentPost.id;
-        const userId = currentPost.user.id;
+        navigate("/mypage");
+        // const postId = currentPost.id;
+        // const userId = currentPost.user.id;
 
         // try {
         //     const response = await fetch(
