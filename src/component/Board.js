@@ -46,22 +46,6 @@ function Board() {
     setPosts(tempData);
   }, [userId]); // userId가 바뀔 때만 실행됨
 
-  // useEffect(() => {
-  //   const tempLikes = [
-  //     { postId: 5, likeCount: 12 },
-  //     { postId: 6, likeCount: 8 }
-  //   ]
-  //   setLikes(tempLikes);
-  // }, []);
-
-  // useEffect(() => {
-  //   const tempComments = [
-  //     { postId: 5, commentCount: 5 },
-  //     { postId: 6, commentCount: 2 }
-  //   ];
-  //   setCommentCounts(tempComments);
-  // }, []);
-
   return (
     <div>
       <main className={styles.main}>

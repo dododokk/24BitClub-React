@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import { LikeContext } from '../context/LikeContext';
@@ -19,17 +19,18 @@ function Post() {
     // const { userId } = useContext(UserContext);
     const { toggleLike, likes } = useContext(LikeContext);
     const { deleteComment, refreshCommentCount } = useContext(CommentContext);
-
+    const inputRef = useRef(null);
     // const [currentPost, setCurrentPost] = useState(post || {});
     // const { userId } = useContext(UserContext);
     const { id, userId } = location.state || {};
-    
+    const [posts, setPosts] = useState("");
 
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [liked, setLiked] = useState(false);
     const [newTitle, setNewTitle] = useState("");
     const [newContent, setNewContent] = useState("");
+
     // const currentLike = likes.find(like => like.postId === post.id);
 
     useEffect(() => {
@@ -58,11 +59,12 @@ function Post() {
                 }
                 // ...
             ]
-            const targetPost = tempData.find((p) => p.id === id);
+            const targetPost = tempData.find((p) => p.postId === id);
             setNewTitle(targetPost.title);
             setNewContent(targetPost.content);
+            setPosts(targetPost);
 
-            if(inputRef.current){
+            if (inputRef.current) {
                 inputRef.current.innerHTML = targetPost.content;
             }
         }
@@ -99,7 +101,11 @@ function Post() {
     //     await deleteComment(commentId, post.id);
     //     setComments(prev => prev.filter(c => c.id !== commentId));
     // };
-    const filteredComments = comments.filter(comment => comment.post.id === post.postId);
+    // const filteredComments = comments.filter(comment => comment.post.id === post.postId);
+    const filteredComments = comments.filter(
+        comment => comment.post?.id === post?.postId
+    );
+
 
 
 
@@ -110,13 +116,13 @@ function Post() {
     // }, [post]);
     useEffect(() => {
         const tempComments = [
-            { id: 1, post: {id: 5}, content: "BCBPㅋㅋㅋㅋㅠㅠㅠ플플ㅋㅋㅋㅋㅋ키키ㅋㅋㅋ", user: {id: 1, username: "정화진"}, createdAt: "25.07.26" },
-            { id: 2, post: {id: 5}, content: "프로필이미지 변수추가해라 이수호 ", user: {id: 2, username: "문효진"}, createdAt: "25.08.26" },
-            { id: 3, post: {id: 5}, content: "댓글 스크롤바 확인 ", user: {id: 2, username: "문효진"}, createdAt: "25.08.26" },
-            { id: 4, post: {id: 5}, content: "4개부터 스크롤바 ", user: {id: 2, username: "문효진"}, createdAt: "25.08.26" },
-            { id: 5, post: {id: 5}, content: "슈루룽 ", user: {id: 2, username: "문효진"}, createdAt: "25.08.26" },
-            { id: 6, post: {id: 6}, content: "시프도 터지고", user: {id: 3, username: "이수호"}, createdAt: "25.08.27"},
-            { id: 7, post: {id: 6}, content: "알고도 터지고", user: {id: 4, username: "김도은"}, createdAt: "25.08.27"}
+            { id: 1, post: { id: 5 }, content: "BCBPㅋㅋㅋㅋㅠㅠㅠ플플ㅋㅋㅋㅋㅋ키키ㅋㅋㅋ", user: { id: 1, username: "정화진" }, createdAt: "25.07.26" },
+            { id: 2, post: { id: 5 }, content: "프로필이미지 변수추가해라 이수호 ", user: { id: 2, username: "문효진" }, createdAt: "25.08.26" },
+            { id: 3, post: { id: 5 }, content: "댓글 스크롤바 확인 ", user: { id: 2, username: "문효진" }, createdAt: "25.08.26" },
+            { id: 4, post: { id: 5 }, content: "4개부터 스크롤바 ", user: { id: 2, username: "문효진" }, createdAt: "25.08.26" },
+            { id: 5, post: { id: 5 }, content: "슈루룽 ", user: { id: 2, username: "문효진" }, createdAt: "25.08.26" },
+            { id: 6, post: { id: 6 }, content: "시프도 터지고", user: { id: 3, username: "이수호" }, createdAt: "25.08.27" },
+            { id: 7, post: { id: 6 }, content: "알고도 터지고", user: { id: 4, username: "김도은" }, createdAt: "25.08.27" }
         ];
         setComments(tempComments);
     }, []); // userId가 바뀔 때만 실행됨
@@ -223,26 +229,26 @@ function Post() {
                 <div className={styles['post-header']}>
                     <div className={styles.writer}>
                         <img src={authorProfile} className={styles['author-profile']} />
-                        <div className={styles.author}>{targetPost.username}</div>
+                        <div className={styles.author}>{posts.username}</div>
                     </div>
                     <button className={styles['contents-btn']} onClick={() => navigate('/board')}>목차</button>
 
                 </div>
                 <div className={styles['post-content']}>
                     <div className={styles['post-title']}>
-                        &nbsp;&nbsp;제목 : <span className={styles.title}>{targetPost.title}</span>
+                        &nbsp;&nbsp;제목 : <span className={styles.title}>{posts.title}</span>
                     </div>
                     <div className={styles['post-body']}>
-                        {targetPost.content}
+                        {posts.content}
                     </div>
                 </div>
                 <div className={styles.meta}>
-                    <span className={styles.span}><img className={styles.heart} src={liked ? heartFilled : heart} 
-                     //onClick={handleLike} 
-                    /> {targetPost.likeCount}
-                    {/* {currentLike ? currentLike.likeCount : 0} */}
+                    <span className={styles.span}><img className={styles.heart} src={liked ? heartFilled : heart}
+                    //onClick={handleLike} 
+                    /> {posts.likeCount}
+                        {/* {currentLike ? currentLike.likeCount : 0} */}
                     </span>
-                    <span className={styles.span}><img className={styles.chat} src={chat} /> {targetPost.commentCount}</span>
+                    <span className={styles.span}><img className={styles.chat} src={chat} /> {posts.commentCount}</span>
                 </div>
                 <div className={styles['comment-section']}>
 
@@ -267,12 +273,12 @@ function Post() {
 
                     </div>
                     <div className={styles['comment-input-box']}>
-                        <input className={styles.commentInput} type="text" placeholder="댓글을 입력하세요..." 
-                        value={newComment} 
+                        <input className={styles.commentInput} type="text" placeholder="댓글을 입력하세요..."
+                            value={newComment}
                         //onChange={(e) => setNewComment(e.target.value)}
                         />
                         <button className={styles.commentButton}
-                        onClick={handleAddComment}
+                        //onClick={handleAddComment}
                         >작성</button>
                     </div>
                 </div>
