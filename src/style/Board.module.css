@@ -199,6 +199,7 @@ tr td:nth-child(2){
     color: #888;
     margin-top: auto;
 }
+
 .pagination span{
     margin: 0 6px;
     cursor: pointer;
@@ -209,6 +210,13 @@ tr td:nth-child(2){
 .pagination .active{
     font-weight: bold;
     color: black;
+}
+.pagination .disabled {
+  color: #ccc;
+  cursor: default;
+}
+.pagination .disabled:hover{
+  color: #ccc;
 }
 
 

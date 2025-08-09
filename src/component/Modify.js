@@ -30,7 +30,7 @@ function Modify() {
             //id랑 userId 넘기고 해당 포스트 내용 받기.
             const tempData = [
                 {
-                    "id": 45, //게시글 아이디 -> post_id
+                    "postId": 45, //게시글 아이디 -> post_id
                     "title": "첫 번째 게시글",
                     "userId": 1,
                     "username": "정화진",
