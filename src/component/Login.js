@@ -30,10 +30,16 @@ function Login() {
             setIsLoggedIn(true);
             navigate('/');
             //나중에 서버에 전송
-            //나중에 서버에 전송
             // try {
-            //     const response = await fetch(`/api/users?username=${inputId}&password=${inputPw}`, {
-            //         method: "POST"
+            //     const response = await fetch(`/api/auth/login`, {
+            //         method: "POST",
+            //         headers:{
+            //             "Content-Type":"application/json",
+            //         },
+            //         body: JSON.stringify({
+            //             "username":inputId,
+            //             "password":inputPw
+            //         })
             //     });
 
             //     if (response.ok) {

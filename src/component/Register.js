@@ -37,11 +37,16 @@ function Register() {
         if (!checkPw && inputId && inputPw && confirmPw) {
             navigate('/login');
             // 서버에 회원가입 정보 전달
-            // 서버에 회원가입 정보 전달
-            //나중에 서버에 전송
             // try {
-            //     const response = await fetch(`/api/users?username=${inputId}&password=${inputPw}`, {
-            //         method: "POST"
+            //     const response = await fetch(`/api/auth/signup`, {
+            //         method: "POST",
+            //         headers:{
+            //             "Content-Type":"application/json",
+            //         },
+            //         body: JSON.stringify({
+            //             "username":inputId,
+            //             "password":inputPw
+            //         })
             //     });
 
             //     if (response.ok) {
@@ -56,7 +61,6 @@ function Register() {
             //     alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
             // }
         }
-
         
     }
 

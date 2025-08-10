@@ -15,6 +15,7 @@ function Nav() {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
     setUserId("");
     setUserPw("");
