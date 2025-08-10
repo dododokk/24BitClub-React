@@ -12,8 +12,8 @@ main {
     padding: 0 20px 20px 20px;
     width: 70%;
     margin: 0 auto;
-    height: 700px;
-    min-height: 580px;
+    height: 500px;
+    min-height: 500px;
 }
 #bar{
     background-color: #898989;
@@ -58,7 +58,7 @@ input{
     resize: none;
 } */
 #content{
-    height: 65%;
+    height: 60%;
     width: 100%;
     border: 1px solid #ccc;
 }

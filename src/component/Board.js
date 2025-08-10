@@ -105,7 +105,7 @@ function Board() {
                   return (
                     <tr key={post.postId}>
                       <td className={styles.postId}>{pageInfo.currentPage * 5 + index + 1}</td>
-                      <td className={styles.title} onClick={() => { isLoggedIn ? navigate('/post', { state: { id: post.postId, userId: post.userId } }) : alert("로그인이 필요한 기능입니다.") }}>{post.title}</td>
+                      <td className={styles.title} onClick={() => { isLoggedIn ? navigate('/post', { state: { postId: post.postId, userId: post.userId } }) : alert("로그인이 필요한 기능입니다.") }}>{post.title}</td>
                       <td className={styles.author}>{post.username}</td>
                       <td className={styles.createdAt}>{post.createdAt}</td>
                       <td className={styles.meta}>
