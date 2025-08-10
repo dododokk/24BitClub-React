@@ -43,30 +43,6 @@ function Content(props) {
                 .catch(err => {
                     console.error("게시글 불러오기 실패:", err);
                 });
-            // const tempData = [
-            //     {
-            //         "id": 45, //게시글 아이디 -> post_id
-            //         "title": "첫 번째 게시글",
-            //         "userId": 1,
-            //         "username": "정화진",
-            //         "createdAt": "2025-07-30",
-            //         "likeCount": 1,
-            //         "commentCount": 1
-            //     },
-            //     {
-            //         "id": 48,
-            //         "title": "세 번째 게시글",
-            //         "userId": 1,
-            //         "username": "정화진",
-            //         "createdAt": "2025-07-30",
-            //         "likeCount": 1,
-            //         "commentCount": 1
-            //     }
-            //     // ...
-            // ]
-            // 혹시 author id 비교해야하는 상황이 생긴다면 아래 코드.
-            // const myPosts = tempData.filter(post => post.authorId === userId);
-            // setPosts(tempData);
         }
         else if (props.title === "menu2") {
             //서버 연결
@@ -88,28 +64,6 @@ function Content(props) {
                 .catch(err => {
                     console.error("게시글 불러오기 실패:", err);
                 });
-            // const tempData = [
-            //     {
-            //         "id": 45, //게시글 아이디 -> post_id
-            //         "title": "첫 번째 게시글",
-            //         "userId": 1,
-            //         "username": "정화진",
-            //         "createdAt": "2025-07-30",
-            //         "likeCount": 1,
-            //         "commentCount": 1
-            //     },
-            //     {
-            //         "id": 48,
-            //         "title": "세 번째 게시글",
-            //         "userId": 1,
-            //         "username": "정화진",
-            //         "createdAt": "2025-07-30",
-            //         "likeCount": 1,
-            //         "commentCount": 1
-            //     }
-            //     // ...
-            // ]
-            // setPosts(tempData);
         }
         else {
             //서버 연결
@@ -187,7 +141,6 @@ function Content(props) {
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
                                     <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
                                     <button id={styles.fix} onClick={() => navigate('/modify', { state: { id: post.postId, userId: post.userId } })}>수정</button>
-                                    {/* 수정 버튼 누르면 해당 post id를 modify 페이지로 전달 */}
                                     <button id={styles.delete} onClick={handleDelete(post.postId, post.userId)}>삭제</button>
                                 </span>
                             </li>

@@ -9,54 +9,50 @@ function Modify() {
     const inputRef = useRef(null);
     // const { post } = location.state || {};
     // const [currentPost, setCurrentPost] = useState(post || {});
-    const { id, userId } = location.state || {};
+    const { postId, userId } = location.state || {};
 
     const [newTitle, setNewTitle] = useState("");
     const [newContent, setNewContent] = useState("");
 
-    // useEffect(() => {
-    //     if (post) {
-    //         setCurrentPost(post);
-    //         setNewTitle(currentPost.title);
-    //         setNewContent(currentPost.content);
-
-    //         if (inputRef.current) {
-    //             inputRef.current.innerHTML = post.content;
-    //         }
-    //     }
-    // }, [post]);
     useEffect(() => {
-        if (id && userId) {
+        if (postId && userId) {
             //id랑 userId 넘기고 해당 포스트 내용 받기.
-            const tempData = [
-                {
-                    "postId": 45, //게시글 아이디 -> post_id
-                    "title": "첫 번째 게시글",
-                    "userId": 1,
-                    "username": "정화진",
-                    "content": "바부",
-                    "createdAt": "2025-07-30",
-                    "likeCount": 1,
-                    "commentCount": 1
-                },
-                {
-                    "id": 48,
-                    "title": "세 번째 게시글",
-                    "userId": 1,
-                    "username": "정화진",
-                    "content": "일해라 이수호 문효진",
-                    "createdAt": "2025-07-30",
-                    "likeCount": 1,
-                    "commentCount": 1
-                }
-                // ...
-            ]
-            const targetPost = tempData.find((p) => p.id === id);
-            setNewTitle(targetPost.title);
-            setNewContent(targetPost.content);
+            fetch(`/api/posts/${postId}`)
+                .then(res => res.json())
+                .then(data => {
+                    setNewTitle(data.title);
+                    setNewContent(data.content);
+                })
+                .catch(err => console.error("포스트 불러오기 실패:", err));
+            // const tempData = [
+            //     {
+            //         "postId": 45, //게시글 아이디 -> post_id
+            //         "title": "첫 번째 게시글",
+            //         "userId": 1,
+            //         "username": "정화진",
+            //         "content": "바부",
+            //         "createdAt": "2025-07-30",
+            //         "likeCount": 1,
+            //         "commentCount": 1
+            //     },
+            //     {
+            //         "id": 48,
+            //         "title": "세 번째 게시글",
+            //         "userId": 1,
+            //         "username": "정화진",
+            //         "content": "일해라 이수호 문효진",
+            //         "createdAt": "2025-07-30",
+            //         "likeCount": 1,
+            //         "commentCount": 1
+            //     }
+            //     // ...
+            // ]
+            // const targetPost = tempData.find((p) => p.id === id);
+            // setNewTitle(targetPost.title);
+            // setNewContent(targetPost.content);
 
-            if(inputRef.current){
-                inputRef.current.innerHTML = targetPost.content;
+            if (inputRef.current) {
+                inputRef.current.innerHTML = newContent;
             }
         }
     }, []);
@@ -126,10 +122,7 @@ function Modify() {
                     contentEditable
                     suppressContentEditableWarning={true}
                     onInput={(e) => setNewContent(e.currentTarget.innerHTML)}
-                // dangerouslySetInnerHTML={{__html: newContent}}
                 ></div>
-                {/* <textarea id={styles.content} name="content" value={newContent}
-                onChange={(e)=>setNewContent(e.target.value)} /> */}
                 <div className={styles['btn-container']}>
                     <button className={styles['submit-btn']} onClick={handleSubmit}>수정</button>
                 </div>
