@@ -28,6 +28,7 @@ function Board() {
     isFirst: true,
     isLast: true
   });
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   // 서버 연결
   const fetchPosts = (page = 0) => {
@@ -114,6 +115,27 @@ function Board() {
     // });
   }, [userId]); // userId가 바뀔 때만 실행됨
 
+
+  const handleSearch = () => {
+    if (!searchKeyword.trim()) {
+      fetchPosts(0);
+      return;
+    }
+
+    fetch(`/api/posts/search?title=${encodeURIComponent(searchKeyword)}`)
+      .then(res => res.json())
+      .then(data => {
+        setPosts(data.content);
+        setPageInfo({
+          totalPages: data.totalPages,
+          currentPage: data.number,
+          isFirst: data.first,
+          isLast: data.last
+        });
+      })
+      .catch(err => console.error("검색 실패:", err));
+  }
+
   return (
     <div>
       <main className={styles.main}>
@@ -121,9 +143,10 @@ function Board() {
           <div className={styles.searchBox}>
             <div className={styles.searchBar}>
               <img className={styles.searchIcon} src={searchIcon} />
-              <input className={styles.searchInput} type="text" name="search" />
+              <input className={styles.searchInput} type="text" name="search"
+                value={searchKeyword} onChange={(e) => setSearchKeyword(e.target.value)} />
             </div>
-            <button className={styles.searchButton}>검색</button>
+            <button className={styles.searchButton} onClick={handleSearch}>검색</button>
           </div>
           <table border="1">
             <thead>
@@ -171,7 +194,7 @@ function Board() {
           <div className={styles.pagination}>
             <span className={pageInfo.isFirst ? styles.disabled : ""}
               onClick={() => !pageInfo.isFirst && fetchPosts(pageInfo.currentPage - 1)}>
-                이전
+              이전
             </span>
 
             {Array.from({ length: pageInfo.totalPages }, (_, i) => (
