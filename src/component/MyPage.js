@@ -18,76 +18,148 @@ function Label(props) {
 }
 
 function Content(props) {
-    const { userId } = useContext(UserContext);
+    const { userId, userDistinctId } = useContext(UserContext);
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (props.title === "menu1") {
             //서버 연결
-            const tempData = [
-                {
-                    "id": 45, //게시글 아이디 -> post_id
-                    "title": "첫 번째 게시글",
-                    "userId": 1,
-                    "username": "정화진",
-                    "createdAt": "2025-07-30",
-                    "likeCount": 1,
-                    "commentCount": 1
-                },
-                {
-                    "id": 48,
-                    "title": "세 번째 게시글",
-                    "userId": 1,
-                    "username": "정화진",
-                    "createdAt": "2025-07-30",
-                    "likeCount": 1,
-                    "commentCount": 1
+            fetch(`/api/posts/user/${userDistinctId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
                 }
-                // ...
-            ]
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error(`서버 오류: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    setPosts(data); // 서버에서 받은 게시글 목록 저장
+                })
+                .catch(err => {
+                    console.error("게시글 불러오기 실패:", err);
+                });
+            // const tempData = [
+            //     {
+            //         "id": 45, //게시글 아이디 -> post_id
+            //         "title": "첫 번째 게시글",
+            //         "userId": 1,
+            //         "username": "정화진",
+            //         "createdAt": "2025-07-30",
+            //         "likeCount": 1,
+            //         "commentCount": 1
+            //     },
+            //     {
+            //         "id": 48,
+            //         "title": "세 번째 게시글",
+            //         "userId": 1,
+            //         "username": "정화진",
+            //         "createdAt": "2025-07-30",
+            //         "likeCount": 1,
+            //         "commentCount": 1
+            //     }
+            //     // ...
+            // ]
             // 혹시 author id 비교해야하는 상황이 생긴다면 아래 코드.
             // const myPosts = tempData.filter(post => post.authorId === userId);
-            setPosts(tempData);
+            // setPosts(tempData);
         }
         else if (props.title === "menu2") {
             //서버 연결
-            const tempData = [
-                {
-                    "id": 45, //게시글 아이디 -> post_id
-                    "title": "첫 번째 게시글",
-                    "userId": 1,
-                    "username": "정화진",
-                    "createdAt": "2025-07-30",
-                    "likeCount": 1,
-                    "commentCount": 1
-                },
-                {
-                    "id": 48,
-                    "title": "세 번째 게시글",
-                    "userId": 1,
-                    "username": "정화진",
-                    "createdAt": "2025-07-30",
-                    "likeCount": 1,
-                    "commentCount": 1
+            fetch(`/api/posts/commented/user/${userDistinctId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
                 }
-                // ...
-            ]
-            setPosts(tempData);
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error(`서버 오류: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    setPosts(data); // 서버에서 받은 게시글 목록 저장
+                })
+                .catch(err => {
+                    console.error("게시글 불러오기 실패:", err);
+                });
+            // const tempData = [
+            //     {
+            //         "id": 45, //게시글 아이디 -> post_id
+            //         "title": "첫 번째 게시글",
+            //         "userId": 1,
+            //         "username": "정화진",
+            //         "createdAt": "2025-07-30",
+            //         "likeCount": 1,
+            //         "commentCount": 1
+            //     },
+            //     {
+            //         "id": 48,
+            //         "title": "세 번째 게시글",
+            //         "userId": 1,
+            //         "username": "정화진",
+            //         "createdAt": "2025-07-30",
+            //         "likeCount": 1,
+            //         "commentCount": 1
+            //     }
+            //     // ...
+            // ]
+            // setPosts(tempData);
         }
         else {
             //서버 연결
-            const tempData = [
-
-            ];
-            setPosts(tempData);
+            fetch(`/api/posts/liked/user/${userDistinctId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error(`서버 오류: ${res.status}`);
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    setPosts(data); // 서버에서 받은 게시글 목록 저장
+                })
+                .catch(err => {
+                    console.error("게시글 불러오기 실패:", err);
+                });
         }
     }, [props.title, userId]); //props.title이나 userId 값이 바뀔 때만 실행. , [props.title, userId]
 
     let content;
 
-    const handleDelete = (id, userId) => {
+    const handleDelete = async (postId, userId) => {
         // 서버에 삭제 요청.
+        try {
+            const res = await fetch(
+                `/api/posts/${postId}?userId=${userId}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }
+            );
+
+            if (!res.ok) {
+                throw new Error(`삭제 실패: ${res.status}`);
+            }
+
+            console.log("삭제 성공");
+            // 화면에서 해당 게시글 제거
+            setPosts(prev => prev.filter(post => post.id !== postId));
+
+        } catch (err) {
+            console.error("에러 발생:", err);
+        }
     }
 
     if (props.title === "menu1") {
@@ -106,17 +178,17 @@ function Content(props) {
                 ) : (
                     <ul>
                         {posts.map((post, index) => (
-                            <li key={post.id}>
+                            <li key={post.postId}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{index + 1}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { id: post.id, userId: post.userId } })}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { id: post.postId, userId: post.userId } })}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
                                     <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
-                                    <button id={styles.fix} onClick={() => navigate('/modify', { state: { id: post.id, userId: post.userId } })}>수정</button>
+                                    <button id={styles.fix} onClick={() => navigate('/modify', { state: { id: post.postId, userId: post.userId } })}>수정</button>
                                     {/* 수정 버튼 누르면 해당 post id를 modify 페이지로 전달 */}
-                                    <button id={styles.delete} onClick={handleDelete(post.id, post.userId)}>삭제</button>
+                                    <button id={styles.delete} onClick={handleDelete(post.postId, post.userId)}>삭제</button>
                                 </span>
                             </li>
                         ))}
@@ -141,9 +213,9 @@ function Content(props) {
                 ) : (
                     <ul>
                         {posts.map((post, index) => (
-                            <li key={post.id}>
+                            <li key={post.postId}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{index + 1}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post')}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { id: post.postId, userId: post.userId } })}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
@@ -173,9 +245,9 @@ function Content(props) {
                 ) : (
                     <ul>
                         {posts.map((post, index) => (
-                            <li key={post.id}>
+                            <li key={post.postId}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{index + 1}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post')}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { id: post.postId, userId: post.userId } })}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>

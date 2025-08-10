@@ -14,7 +14,7 @@ function Input(props) {
 }
 
 function Login() {
-    const { setUserId, setUserPw } = useContext(UserContext);
+    const { setUserId, setUserPw, setUserDistinctId } = useContext(UserContext);
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     const [inputId, setInputId] = useState("");
     const [inputPw, setInputPw] = useState("");
@@ -46,6 +46,7 @@ function Login() {
             //         const data = await response.json();
 
             //         // 로그인 성공 처리
+                    // setUserDistinctId(data.userId);
             //         setUserId(data.username); // user_id는 숫자일 가능성 있음
             //         setUserPw(data.password);      // 필요 시 저장, 보통은 token만 저장
             //         setIsLoggedIn(true);
