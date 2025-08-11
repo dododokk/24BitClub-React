@@ -25,10 +25,10 @@ function Login() {
 
     const handleLogin = async () => {
         if (inputId && inputPw) {
-            setUserId(inputId);
-            setInputPw(inputPw);
-            setIsLoggedIn(true);
-            navigate('/');
+            // setUserId(inputId);
+            // setInputPw(inputPw);
+            // setIsLoggedIn(true);
+            // navigate('/');
             //나중에 서버에 전송
             try {
                 const response = await fetch(`/api/auth/login`, {

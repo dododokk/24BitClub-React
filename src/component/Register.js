@@ -35,7 +35,7 @@ function Register() {
 
     const handleRegister = async () => {
         if (!checkPw && inputId && inputPw && confirmPw) {
-            navigate('/login');
+            // navigate('/login');
             // 서버에 회원가입 정보 전달
             try {
                 const response = await fetch(`/api/auth/signup`, {
