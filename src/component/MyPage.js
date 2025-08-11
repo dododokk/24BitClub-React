@@ -146,7 +146,7 @@ function Content(props) {
                                     <span className={styles.data}><img src={heart} id={styles.heart} />{post.likeCount}</span>
                                     <span className={styles.data}><img src={chat} id={styles.chat} />{post.commentCount}</span>
                                     <button id={styles.fix} onClick={() => navigate('/modify', { state: { id: post.postId, userId: post.userId } })}>수정</button>
-                                    <button id={styles.delete} onClick={handleDelete(post.postId, post.userId)}>삭제</button>
+                                    <button id={styles.delete} onClick={() => handleDelete(post.postId, post.userId)}>삭제</button>
                                 </span>
                             </li>
                         ))}

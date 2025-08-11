@@ -24,32 +24,6 @@ function Modify() {
                     setNewContent(data.content);
                 })
                 .catch(err => console.error("포스트 불러오기 실패:", err));
-            // const tempData = [
-            //     {
-            //         "postId": 45, //게시글 아이디 -> post_id
-            //         "title": "첫 번째 게시글",
-            //         "userId": 1,
-            //         "username": "정화진",
-            //         "content": "바부",
-            //         "createdAt": "2025-07-30",
-            //         "likeCount": 1,
-            //         "commentCount": 1
-            //     },
-            //     {
-            //         "id": 48,
-            //         "title": "세 번째 게시글",
-            //         "userId": 1,
-            //         "username": "정화진",
-            //         "content": "일해라 이수호 문효진",
-            //         "createdAt": "2025-07-30",
-            //         "likeCount": 1,
-            //         "commentCount": 1
-            //     }
-            //     // ...
-            // ]
-            // const targetPost = tempData.find((p) => p.id === id);
-            // setNewTitle(targetPost.title);
-            // setNewContent(targetPost.content);
 
             if (inputRef.current) {
                 inputRef.current.innerHTML = newContent;
