@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 import styles from "../style/Write.module.css";
 function Write() {
     const navigate = useNavigate();
@@ -9,6 +10,7 @@ function Write() {
     const { userId } = location.state || {};
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const { userDistinctId } = useContext(UserContext);
 
     const applyStyle = (command, value = null) => {
         document.execCommand(command, false, value);
@@ -26,7 +28,7 @@ function Write() {
         // 서버 보내기
         try{
             const response = await fetch(
-                `https://miraculous-sparkle-production.up.railway.app/api/posts?userId=${userId}&title=${encodeURIComponent(title)}`,
+                `https://miraculous-sparkle-production.up.railway.app/api/posts?userId=${userDistinctId}&title=${encodeURIComponent(title)}`,
                 {
                     method: "POST",
                     headers:{
