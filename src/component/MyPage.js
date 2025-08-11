@@ -21,6 +21,7 @@ function Content(props) {
     const { userId, userDistinctId } = useContext(UserContext);
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         if (props.title === "menu1") {
@@ -29,6 +30,7 @@ function Content(props) {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 }
             })
                 .then(res => {
@@ -50,6 +52,7 @@ function Content(props) {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 }
             })
                 .then(res => {
@@ -71,6 +74,7 @@ function Content(props) {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 }
             })
                 .then(res => {
@@ -99,6 +103,7 @@ function Content(props) {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
                     }
                 }
             );
