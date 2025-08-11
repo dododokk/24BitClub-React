@@ -66,26 +66,44 @@ function Board() {
     fetchPosts(0); //서버 연결시 첫 페이지 로드
   }, [userId]); // userId가 바뀔 때만 실행됨
 
-
   const handleSearch = () => {
-    if (!searchKeyword.trim()) {
-      fetchPosts(0);
-      return;
-    }
-
-    fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/search?title=${encodeURIComponent(searchKeyword)}`)
-      .then(res => res.json())
-      .then(data => {
-        setPosts(data.content);
-        setPageInfo({
-          totalPages: data.totalPages,
-          currentPage: data.number,
-          isFirst: data.first,
-          isLast: data.last
-        });
-      })
-      .catch(err => console.error("검색 실패:", err));
+  if (!searchKeyword.trim()) {
+    fetchPosts(0);
+    return;
   }
+
+  const token = localStorage.getItem("token");
+
+  fetch(
+    `https://miraculous-sparkle-production.up.railway.app/api/posts/search?title=${encodeURIComponent(searchKeyword)}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+    }
+  )
+    .then(res => {
+      if (!res.ok) {
+        return res.text().then(text => {
+          throw new Error(text || "서버 오류");
+        });
+      }
+      return res.json();
+    })
+    .then(data => {
+      setPosts(data.content);
+      setPageInfo({
+        totalPages: data.totalPages,
+        currentPage: data.number,
+        isFirst: data.first,
+        isLast: data.last,
+      });
+    })
+    .catch(err => console.error("검색 실패:", err));
+};
+
 
   return (
     <div>
