@@ -45,7 +45,7 @@ function Post() {
                 setLoading(true);
                 setError(null);
 
-                const res = await fetch(`http://localhost:8080/api/posts/${postId}`);
+                const res = await fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}`);
                 if(!res.ok) throw new Error('게시글 조회 실패');
                 const data = await res.json();
 
@@ -68,7 +68,7 @@ function Post() {
                 setCommentsLoading(true);
                 setCommentsError(null);
 
-                const res = await fetch(`http://localhost:8080/api/posts/${postId}/comments?sort=asc`);
+                const res = await fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}/comments?sort=asc`);
                 if(!res.ok) throw new Error('댓글 목록 조회 실패');
                 const data = await res.json();
                 setComments(data);
@@ -106,7 +106,7 @@ function Post() {
         try{
             let res;
             if(!prevLiked){
-                res = await fetch(`http://localhost:8080/api/posts/${postId}/like`, {
+                res = await fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}/like`, {
                     method: 'POST',
                     headers: {'Content-Type':'application/json'},
                     body: JSON.stringify({postId, userId}),
@@ -142,7 +142,7 @@ function Post() {
         try{
             setSubmitPending(true);
 
-            const res = await fetch('http://localhost:8080/api/posts/${postId}/comments', {
+            const res = await fetch('https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}/comments', {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({
@@ -181,7 +181,7 @@ function Post() {
     const handleDeleteComment = async(commentId)=>{
         if(!window.confirm('정말 삭제하시겠습니까???!!?!!')) return;
         try{
-            const res = await fetch(`/api/posts/${postId}/comments/${commentId}`,{
+            const res = await fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}/comments/${commentId}`,{
                 method: 'DELETE'
             })
             if(!res.ok) throw new Error('댓글 삭제 실패');

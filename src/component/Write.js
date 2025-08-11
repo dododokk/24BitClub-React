@@ -26,7 +26,7 @@ function Write() {
         // 서버 보내기
         try{
             const response = await fetch(
-                `http://localhost:8080/api/posts?userId=${userId}&title=${encodeURIComponent(title)}`,
+                `https://miraculous-sparkle-production.up.railway.app/api/posts?userId=${userId}&title=${encodeURIComponent(title)}`,
                 {
                     method: "POST",
                     headers:{

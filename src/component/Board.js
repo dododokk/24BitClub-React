@@ -32,7 +32,7 @@ function Board() {
 
   // 서버 연결
   const fetchPosts = (page = 0) => {
-    fetch(`http://localhost:8080/api/posts?page=${page}&size=5&sort=createdAt,desc`)
+    fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts?page=${page}&size=5&sort=createdAt,desc`)
       .then(res => res.json())
       .then(data => {
         setPosts(data.content);
@@ -57,7 +57,7 @@ function Board() {
       return;
     }
 
-    fetch(`http://localhost:8080/api/posts/search?title=${encodeURIComponent(searchKeyword)}`)
+    fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/search?title=${encodeURIComponent(searchKeyword)}`)
       .then(res => res.json())
       .then(data => {
         setPosts(data.content);

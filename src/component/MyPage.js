@@ -25,7 +25,7 @@ function Content(props) {
     useEffect(() => {
         if (props.title === "menu1") {
             //서버 연결
-            fetch(`http://localhost:8080/api/posts/user/${userDistinctId}`, {
+            fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/user/${userDistinctId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -46,7 +46,7 @@ function Content(props) {
         }
         else if (props.title === "menu2") {
             //서버 연결
-            fetch(`http://localhost:8080/api/posts/commented/user/${userDistinctId}`, {
+            fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/commented/user/${userDistinctId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -67,7 +67,7 @@ function Content(props) {
         }
         else {
             //서버 연결
-            fetch(`http://localhost:8080/api/posts/liked/user/${userDistinctId}`, {
+            fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/liked/user/${userDistinctId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -94,7 +94,7 @@ function Content(props) {
         // 서버에 삭제 요청.
         try {
             const res = await fetch(
-                `http://localhost:8080/api/posts/${postId}?userId=${userId}`,
+                `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}?userId=${userId}`,
                 {
                     method: "DELETE",
                     headers: {

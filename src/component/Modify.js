@@ -17,7 +17,7 @@ function Modify() {
     useEffect(() => {
         if (postId && userId) {
             //id랑 userId 넘기고 해당 포스트 내용 받기.
-            fetch(`http://localhost:8080/api/posts/${postId}`)
+            fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}`)
                 .then(res => res.json())
                 .then(data => {
                     setNewTitle(data.title);
@@ -65,7 +65,7 @@ function Modify() {
 
         try {
             const response = await fetch(
-                `http://localhost:8080/api/posts/${postId}?userId=${userId}&title=${encodeURIComponent(newTitle)}`,
+                `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}?userId=${userId}&title=${encodeURIComponent(newTitle)}`,
                 {
                     method: "PUT",
                     headers: {

@@ -38,7 +38,7 @@ function Register() {
             // navigate('/login');
             // 서버에 회원가입 정보 전달
             try {
-                const response = await fetch(`http://localhost:8080/api/auth/signup`, {
+                const response = await fetch(`https://miraculous-sparkle-production.up.railway.app/api/auth/signup`, {
                     method: "POST",
                     headers:{
                         "Content-Type":"application/json",
