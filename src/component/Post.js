@@ -61,10 +61,6 @@ function Post() {
         fetchPost();
     }, [postId, navigate]);
 
-    if (loading) return <main className={styles.main}><p>불러오는 중…</p></main>;
-    if (error)   return <main className={styles.main}><p>{error}</p></main>;
-    if (!post)   return <main className={styles.main}><p>글을 찾을 수 없어요.</p></main>;
-
     useEffect(() => {
         if(!postId) return;
         const fetchComments = async () => {
@@ -85,6 +81,10 @@ function Post() {
         fetchComments();
     }, [postId]);
 
+    if (loading) return <main className={styles.main}><p>불러오는 중…</p></main>;
+    if (error)   return <main className={styles.main}><p>{error}</p></main>;
+    if (!post)   return <main className={styles.main}><p>글을 찾을 수 없어요.</p></main>;
+
     const handleLikeToggle = async () => {
         if(likePending) return;
         if(!userId){
@@ -100,7 +100,7 @@ function Post() {
             setLikeCount((c) => c+1);
         }else{
             setLiked(false);
-            setLikedCount((c) => Math.max(0, c-1));
+            setLikeCount((c) => Math.max(0, c-1));
         }
 
         try{

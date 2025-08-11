@@ -16,12 +16,12 @@ function Write() {
 
     const handleSubmit = async () => {
         setContent(inputRef.current.innerHTML);
-        navigate('/board');
-
         if(title===""){
             alert("제목을 입력해주세요.");
             return;
         }
+        
+        navigate('/board');
         // 서버 보내기
         // try{
         //     const response = await fetch(
