@@ -25,7 +25,7 @@ function Write() {
         // 서버 보내기
         try{
             const response = await fetch(
-                `/api/posts?userId=${userId}&title=${encodeURIComponent(title)}`,
+                `http://localhost:8080/api/posts?userId=${userId}&title=${encodeURIComponent(title)}`,
                 {
                     method: "POST",
                     headers:{

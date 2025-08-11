@@ -57,7 +57,7 @@ function Board() {
       return;
     }
 
-    fetch(`/api/posts/search?title=${encodeURIComponent(searchKeyword)}`)
+    fetch(`http://localhost:8080/api/posts/search?title=${encodeURIComponent(searchKeyword)}`)
       .then(res => res.json())
       .then(data => {
         setPosts(data.content);

@@ -106,7 +106,7 @@ function Post() {
         try{
             let res;
             if(!prevLiked){
-                res = await fetch(`/api/posts/${postId}/like`, {
+                res = await fetch(`http://localhost:8080/api/posts/${postId}/like`, {
                     method: 'POST',
                     headers: {'Content-Type':'application/json'},
                     body: JSON.stringify({postId, userId}),
@@ -142,7 +142,7 @@ function Post() {
         try{
             setSubmitPending(true);
 
-            const res = await fetch('/api/posts/${postId}/comments', {
+            const res = await fetch('http://localhost:8080/api/posts/${postId}/comments', {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({
