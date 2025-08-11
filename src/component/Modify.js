@@ -13,6 +13,7 @@ function Modify() {
 
     const [newTitle, setNewTitle] = useState("");
     const [newContent, setNewContent] = useState("");
+    const [fontSize, setFontSize] = useState("");
 
     useEffect(() => {
         if (postId && userId) {
@@ -59,8 +60,8 @@ function Modify() {
             console.log("수정 성공:", result);
 
             navigate("/mypage");
-        }catch(err){
-            console.error("에러 발생:",err);
+        } catch (err) {
+            console.error("에러 발생:", err);
         }
         // 서버로 수정 요청 보내기
     };
@@ -75,13 +76,18 @@ function Modify() {
             <div id={styles.bar}></div>
             <div className={styles['form-container']}>
 
-                <label for="title">제목</label>
+                <label htmlFor="title">제목</label>
                 <input type="text" name="title" value={newTitle}
                     onChange={(e) => setNewTitle(e.target.value)} />
-                <label for="content">내용</label>
+                <label htmlFor="content">내용</label>
                 <div className={styles['editor-toolbar']}>
-                    <select onChange={(e) => applyStyle('fontSize', e.target.value)}>
-                        <option value="" disabled hidden selected>글자 크기</option>
+                    <select
+                        value={fontSize}
+                        onChange={(e) => {
+                            setFontSize(e.target.value);
+                            applyStyle('fontSize', e.target.value)
+                        }}>
+                        <option value="" disabled hidden>글자 크기</option>
                         <option value="1">작게</option>
                         <option value="3">보통</option>
                         <option value="5">크게</option>
