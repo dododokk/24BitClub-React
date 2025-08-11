@@ -28,6 +28,7 @@ function Post() {
     const [newComment, setNewComment] = useState("");
     const [submitPending, setSubmitPending] = useState(false);
     const listRef = useRef(null);
+    const { userDistinctId } = useContext(UserContext);
 
     useEffect(() => {
         if (!postId) {
@@ -124,7 +125,7 @@ function Post() {
                             "Content-Type": "application/json",
                             ...(token && { Authorization: `Bearer ${token}` }),
                         },
-                        body: JSON.stringify({ postId, userId }),
+                        body: JSON.stringify({ postId, userDistinctId }),
                     }
                 );
             } else {
@@ -164,17 +165,14 @@ function Post() {
             setSubmitPending(true);
 
             const res = await fetch(
-                `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}/comments`,
+                `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}/comments?userId=${userDistinctId}`, // userId를 쿼리 파라미터로
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         ...(token && { Authorization: `Bearer ${token}` }),
                     },
-                    body: JSON.stringify({
-                        user: { id: userId },
-                        content: newComment,
-                    }),
+                    body: JSON.stringify(newComment), // 그냥 댓글 내용만 문자열로
                 }
             );
 
@@ -186,8 +184,7 @@ function Post() {
                 userId: created.user?.id,
                 username: created.username,
                 content: created.content,
-                createdAt:
-                    created.createdAt?.replace("T", " ").slice(0, 16) || "",
+                createdAt: created.createdAt?.replace("T", " ").slice(0, 16) || "",
                 mine: true,
             };
 
