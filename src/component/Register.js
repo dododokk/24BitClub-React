@@ -37,29 +37,29 @@ function Register() {
         if (!checkPw && inputId && inputPw && confirmPw) {
             navigate('/login');
             // 서버에 회원가입 정보 전달
-            // try {
-            //     const response = await fetch(`/api/auth/signup`, {
-            //         method: "POST",
-            //         headers:{
-            //             "Content-Type":"application/json",
-            //         },
-            //         body: JSON.stringify({
-            //             "username":inputId,
-            //             "password":inputPw
-            //         })
-            //     });
+            try {
+                const response = await fetch(`/api/auth/signup`, {
+                    method: "POST",
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                    body: JSON.stringify({
+                        "username":inputId,
+                        "password":inputPw
+                    })
+                });
 
-            //     if (response.ok) {
-            //         const data = await response.json();
-            //         navigate("/login");
-            //     } else {
-            //         const errorText = await response.text(); // 서버가 에러 메시지 응답할 경우
-            //         alert(`회원가입 실패: ${errorText}`);
-            //     }
-            // } catch (error) {
-            //     console.error("회원가입 오류:", error);
-            //     alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
-            // }
+                if (response.ok) {
+                    const data = await response.json();
+                    navigate("/login");
+                } else {
+                    const errorText = await response.text(); // 서버가 에러 메시지 응답할 경우
+                    alert(`회원가입 실패: ${errorText}`);
+                }
+            } catch (error) {
+                console.error("회원가입 오류:", error);
+                alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+            }
         }
         
     }

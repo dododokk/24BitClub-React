@@ -23,24 +23,24 @@ function Write() {
         
         navigate('/board');
         // 서버 보내기
-        // try{
-        //     const response = await fetch(
-        //         `/api/posts?userId=${userId}&title=${encodeURIComponent(title)}`,
-        //         {
-        //             method: "POST",
-        //             headers:{
-        //                 "Content-Type":"application/json",
-        //             },
-        //             body: JSON.stringify({content}),
-        //         }
-        //     );
+        try{
+            const response = await fetch(
+                `/api/posts?userId=${userId}&title=${encodeURIComponent(title)}`,
+                {
+                    method: "POST",
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                    body: JSON.stringify({content}),
+                }
+            );
 
-        //     if(response.ok){
-        //         navigate('/board');
-        //     }
-        // }catch(error){
-        //     console.error("Error: ", error);
-        // }
+            if(response.ok){
+                navigate('/board');
+            }
+        }catch(error){
+            console.error("Error: ", error);
+        }
     }
 
     return (

@@ -30,38 +30,38 @@ function Login() {
             setIsLoggedIn(true);
             navigate('/');
             //나중에 서버에 전송
-            // try {
-            //     const response = await fetch(`/api/auth/login`, {
-            //         method: "POST",
-            //         headers:{
-            //             "Content-Type":"application/json",
-            //         },
-            //         body: JSON.stringify({
-            //             "username":inputId,
-            //             "password":inputPw
-            //         })
-            //     });
+            try {
+                const response = await fetch(`/api/auth/login`, {
+                    method: "POST",
+                    headers:{
+                        "Content-Type":"application/json",
+                    },
+                    body: JSON.stringify({
+                        "username":inputId,
+                        "password":inputPw
+                    })
+                });
 
-            //     if (response.ok) {
-            //         const data = await response.json();
+                if (response.ok) {
+                    const data = await response.json();
 
-            //         // 로그인 성공 처리
-                    // setUserDistinctId(data.userId);
-            //         setUserId(data.username); // user_id는 숫자일 가능성 있음
-            //         setUserPw(data.password);      // 필요 시 저장, 보통은 token만 저장
-            //         setIsLoggedIn(true);
+                    // 로그인 성공 처리
+                    setUserDistinctId(data.userId);
+                    setUserId(data.username); // user_id는 숫자일 가능성 있음
+                    setUserPw(data.password);      // 필요 시 저장, 보통은 token만 저장
+                    setIsLoggedIn(true);
 
-            //         // 토큰 저장 (예: localStorage 또는 context)
-            //         localStorage.setItem("token", data.token);
+                    // 토큰 저장 (예: localStorage 또는 context)
+                    localStorage.setItem("token", data.token);
 
-            //         navigate("/");
-            //     } else {
-            //         alert("로그인 실패: 아이디나 비밀번호가 틀렸습니다.");
-            //     }
-            // } catch (error) {
-            //     console.error("로그인 중 오류 발생:", error);
-            //     alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
-            // }
+                    navigate("/");
+                } else {
+                    alert("로그인 실패: 아이디나 비밀번호가 틀렸습니다.");
+                }
+            } catch (error) {
+                console.error("로그인 중 오류 발생:", error);
+                alert("서버 오류가 발생했습니다. 다시 시도해주세요.");
+            }
         }
     }
 

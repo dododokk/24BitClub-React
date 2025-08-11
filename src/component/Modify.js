@@ -63,31 +63,31 @@ function Modify() {
         // const postId = currentPost.id;
         // const userId = currentPost.user.id;
 
-        // try {
-        //     const response = await fetch(
-        //         `/api/posts/${postId}?userId=${userId}&title=${encodeURIComponent(newTitle)}`,
-        //         {
-        //             method: "PUT",
-        //             headers: {
-        //                 "Content-Type": "application/json"
-        //             },
-        //             body: JSON.stringify({
-        //                 content: newContent
-        //             })
-        //         }
-        //     );
+        try {
+            const response = await fetch(
+                `/api/posts/${postId}?userId=${userId}&title=${encodeURIComponent(newTitle)}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        content: newContent
+                    })
+                }
+            );
 
-        //     if (!response.ok) {
-        //         throw new Error("게시글 수정 실패");
-        //     }
+            if (!response.ok) {
+                throw new Error("게시글 수정 실패");
+            }
 
-        //     const result = await response.json();
-        //     console.log("수정 성공:", result);
+            const result = await response.json();
+            console.log("수정 성공:", result);
 
-        //     navigate("/mypage");
-        // }catch(err){
-        //     console.error("에러 발생:",err);
-        // }
+            navigate("/mypage");
+        }catch(err){
+            console.error("에러 발생:",err);
+        }
         // 서버로 수정 요청 보내기
     };
 
