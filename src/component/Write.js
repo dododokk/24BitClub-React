@@ -5,6 +5,7 @@ function Write() {
     const navigate = useNavigate();
     const location = useLocation();
     const inputRef = useRef(null);
+    const token = localStorage.getItem("token");
     const { userId } = location.state || {};
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -21,7 +22,7 @@ function Write() {
             return;
         }
         
-        navigate('/board');
+        // navigate('/board');
         // 서버 보내기
         try{
             const response = await fetch(
@@ -30,6 +31,7 @@ function Write() {
                     method: "POST",
                     headers:{
                         "Content-Type":"application/json",
+                        "Authorization": `Bearer ${token}`,
                     },
                     body: JSON.stringify({content}),
                 }
