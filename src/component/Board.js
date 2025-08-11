@@ -32,19 +32,35 @@ function Board() {
 
   // 서버 연결
   const fetchPosts = (page = 0) => {
-    fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts?page=${page}&size=5&sort=createdAt,desc`)
-      .then(res => res.json())
-      .then(data => {
-        setPosts(data.content);
-        setPageInfo({
-          totalPages: data.totalPages,
-          currentPage: data.number,
-          isFirst: data.first,
-          isLast: data.last
+  const token = localStorage.getItem("token"); // 토큰 가져오기
+
+  fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts?page=${page}&size=5&sort=createdAt,desc`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`, // 토큰 넣기
+    },
+  })
+    .then(res => {
+      if (!res.ok) {
+        return res.text().then(text => {
+          throw new Error(text || "서버 오류");
         });
-      })
-      .catch(err => console.error("게시글 로드 실패:", err));
-  };
+      }
+      return res.json();
+    })
+    .then(data => {
+      setPosts(data.content);
+      setPageInfo({
+        totalPages: data.totalPages,
+        currentPage: data.number,
+        isFirst: data.first,
+        isLast: data.last,
+      });
+    })
+    .catch(err => console.error("게시글 로드 실패:", err));
+};
+
 
   useEffect(() => {
     fetchPosts(0); //서버 연결시 첫 페이지 로드
