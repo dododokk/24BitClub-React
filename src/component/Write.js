@@ -32,10 +32,10 @@ function Write() {
                 {
                     method: "POST",
                     headers:{
-                        "Content-Type":"application/json",
+                        "Content-Type":"text/plain",
                         "Authorization": `Bearer ${token}`,
                     },
-                    body: JSON.stringify({content}),
+                    body: content,
                 }
             );
 
