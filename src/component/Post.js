@@ -102,57 +102,59 @@ function Post() {
     if (!post) return <main className={styles.main}><p>글을 찾을 수 없어요.</p></main>;
 
     const handleLikeToggle = async () => {
-        if (likePending) return;
-        if (!userId) {
-            alert("로그인 필요");
-            return;
+    if (likePending) return;
+    if (!userId) {
+        alert("로그인 필요");
+        return;
+    }
+
+    const prevLiked = liked;
+    const prevCount = likeCount;
+    setLikePending(true);
+
+    // 낙관적 업데이트
+    setLiked(!liked);
+    setLikeCount((c) => (liked ? Math.max(0, c - 1) : c + 1));
+
+    try {
+        const base = "https://miraculous-sparkle-production.up.railway.app";
+        const url = `${base}/api/likes/${postId}`;
+
+        // ★ 서버가 요구하는 헤더 추가
+        const headers = {
+        "X-USER-ID": String(userDistinctId), // 숫자/문자열 서버 기대 타입과 일치시키기
+        ...(token && { Authorization: `Bearer ${token}` }),
+        };
+
+        let res;
+        if (!prevLiked) {
+        res = await fetch(url, {
+            method: "POST",
+            headers,           // 본문 없음 → Content-Type 불필요
+        });
+        } else {
+        res = await fetch(url, {
+            method: "DELETE",
+            headers,           // 본문 없음 → Content-Type 불필요
+        });
         }
-        const prevLiked = liked;
-        const prevCount = likeCount;
-        setLikePending(true);
 
-        setLiked(!liked);
-        setLikeCount((c) => (liked ? Math.max(0, c - 1) : c + 1));
+        if (!res.ok) throw new Error("좋아요 처리 실패");
 
-        try {
-            let res;
-            if (!prevLiked) {
-                res = await fetch(
-                    `https://miraculous-sparkle-production.up.railway.app/api/posts/likes/${postId}`,
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            ...(token && { Authorization: `Bearer ${token}` }),
-                        },
-                        body: JSON.stringify({ postId, userDistinctId }),
-                    }
-                );
-            } else {
-                res = await fetch(
-                    `https://miraculous-sparkle-production.up.railway.app/api/posts/likes/${postId}`,
-                    {
-                        method: "DELETE",
-                        headers: {
-                            "Content-Type": "application/json",
-                            ...(token && { Authorization: `Bearer ${token}` }),
-                        },
-                    }
-                );
-            }
+        // 서버가 JSON으로 likeCount/liked를 내려주지 않는다면,
+        // 별도의 count API 호출 or 낙관적 상태 유지
+        // const { likeCount: cnt, liked: nowLiked } = await res.json();
+        // setLikeCount(cnt); setLiked(nowLiked);
 
-            if (!res.ok) throw new Error("좋아요 처리 실패");
-            const data = await res.json();
-            setLikeCount(data.likeCount);
-            setLiked(!prevLiked);
-        } catch (e) {
-            setLiked(prevLiked);
-            setLikeCount(prevCount);
-            console.error(e);
-            alert("좋아요 처리 오류 발생");
-        } finally {
-            setLikePending(false);
-        }
+    } catch (e) {
+        // 롤백
+        setLiked(prevLiked);
+        setLikeCount(prevCount);
+        console.error(e);
+        alert("좋아요 처리 오류 발생");
+    } finally {
+        setLikePending(false);
+    }
     };
 
     const handleAddComment = async () => {
