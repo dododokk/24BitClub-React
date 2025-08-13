@@ -23,20 +23,17 @@ function Modify() {
                 .then(data => {
                     setNewTitle(data.title);
                     setNewContent(data.content);
+
+                    if (inputRef.current) {
+                        inputRef.current.innerHTML = data.content;
+                    }
                 })
                 .catch(err => console.error("포스트 불러오기 실패:", err));
-
-            if (inputRef.current) {
-                inputRef.current.innerHTML = newContent;
-            }
         }
     }, []);
 
     const handleSubmit = async () => {
-        setNewContent(inputRef.current.innerHTML);
-        navigate("/mypage");
-        // const postId = currentPost.id;
-        // const userId = currentPost.user.id;
+        const latestContent = inputRef.current.innerHTML;
 
         try {
             const response = await fetch(
@@ -47,7 +44,7 @@ function Modify() {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        content: newContent
+                        content: latestContent
                     })
                 }
             );
