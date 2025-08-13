@@ -139,7 +139,7 @@ function Content(props) {
                         {posts.map((post, index) => (
                             <li key={post.postId}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{index + 1}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { id: post.postId, userId: post.userId } })}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { postId: post.postId, userId: post.userId } })}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
@@ -173,7 +173,7 @@ function Content(props) {
                         {posts.map((post, index) => (
                             <li key={post.postId}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{index + 1}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { id: post.postId, userId: post.userId } })}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { postId: post.postId, userId: post.userId } })}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
@@ -205,7 +205,7 @@ function Content(props) {
                         {posts.map((post, index) => (
                             <li key={post.postId}>
                                 <span className={`${styles.postContent} ${styles.order}`}>{index + 1}</span>
-                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { id: post.postId, userId: post.userId } })}>{post.title}</span>
+                                <span className={`${styles.postContent} ${styles.title}`} onClick={() => navigate('/post', { state: { postId: post.postId, userId: post.userId } })}>{post.title}</span>
                                 <span className={`${styles.postContent} ${styles.author}`}>{post.username}</span>
                                 <span className={`${styles.postContent} ${styles.date}`}>{post.createdAt}</span>
                                 <span id={styles.wrap}>
