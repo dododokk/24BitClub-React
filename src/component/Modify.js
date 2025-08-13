@@ -37,13 +37,15 @@ function Modify() {
 
         try {
             const response = await fetch(
-                `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}?userId=${userId}&title=${encodeURIComponent(newTitle)}`,
+                `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}`,
                 {
                     method: "PUT",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "X-USER-ID": userId // 백엔드에서 @RequestHeader로 받음
                     },
                     body: JSON.stringify({
+                        title: newTitle,
                         content: latestContent
                     })
                 }
@@ -60,7 +62,6 @@ function Modify() {
         } catch (err) {
             console.error("에러 발생:", err);
         }
-        // 서버로 수정 요청 보내기
     };
 
     const applyStyle = (command, value = null) => {
