@@ -22,108 +22,63 @@ function Content(props) {
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
-
-    useEffect(() => {
-        if (props.title === "menu1") {
-            //서버 연결
-            fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/user/${userDistinctId}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(`서버 오류: ${res.status}`);
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    setPosts(data); // 서버에서 받은 게시글 목록 저장
-                })
-                .catch(err => {
-                    console.error("게시글 불러오기 실패:", err);
-                });
-        }
-        else if (props.title === "menu2") {
-            //서버 연결
-            fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/commented/user/${userDistinctId}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(`서버 오류: ${res.status}`);
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    setPosts(data); // 서버에서 받은 게시글 목록 저장
-                })
-                .catch(err => {
-                    console.error("게시글 불러오기 실패:", err);
-                });
-        }
-        else {
-            //서버 연결
-            fetch(`https://miraculous-sparkle-production.up.railway.app/api/posts/liked/user/${userDistinctId}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-                .then(res => {
-                    if (!res.ok) {
-                        throw new Error(`서버 오류: ${res.status}`);
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    setPosts(data); // 서버에서 받은 게시글 목록 저장
-                })
-                .catch(err => {
-                    console.error("게시글 불러오기 실패:", err);
-                });
-        }
-    }, [props.title, userId]); //props.title이나 userId 값이 바뀔 때만 실행. , [props.title, userId]
-
     let content;
 
-     const handleDelete = async (postId) => {
-    if (!postId) {
-      console.error("postId 누락");
-      return;
-    }
-    if (!window.confirm("정말 삭제할까요?")) return;
-
-    try {
-      const res = await fetch(
-        `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}?userId=${encodeURIComponent(userDistinctId)}`,
-        {
-          method: "DELETE",
-          headers: {
-            ...(token && { Authorization: `Bearer ${token}` }), // Content-Type 제거
-          },
+    const fetchPosts = () => {
+        let url = "";
+        if (props.title === "menu1") {
+            url = `https://miraculous-sparkle-production.up.railway.app/api/posts/user/${userDistinctId}`;
+        } else if (props.title === "menu2") {
+            url = `https://miraculous-sparkle-production.up.railway.app/api/posts/commented/user/${userDistinctId}`;
+        } else {
+            url = `https://miraculous-sparkle-production.up.railway.app/api/posts/liked/user/${userDistinctId}`;
         }
-      );
 
-      if (res.status !== 204) {
-        const msg = await res.text().catch(() => "");
-        throw new Error(msg || `삭제 실패 (status ${res.status})`);
-      }
+        fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                ...(token && { Authorization: `Bearer ${token}` })
+            }
+        })
+            .then(res => {
+                if (!res.ok) throw new Error(`서버 오류: ${res.status}`);
+                return res.json();
+            })
+            .then(data => setPosts(data))
+            .catch(err => console.error("게시글 불러오기 실패:", err));
+    };
 
-      // ✅ post.id가 아니라 post.postId로 비교해야 함
-      setPosts(prev => prev.filter(p => p.postId !== postId));
-    } catch (err) {
-      console.error("삭제 에러:", err);
-      alert(err.message || "삭제 중 오류가 발생했습니다.");
-    }
-  };
+    useEffect(() => {
+        fetchPosts();
+    }, [props.title, userId]);
+
+    const handleDelete = async (postId) => {
+        if (!window.confirm("정말 삭제할까요?")) return;
+
+        try {
+            const res = await fetch(
+                `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}?userId=${encodeURIComponent(userDistinctId)}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        ...(token && { Authorization: `Bearer ${token}` }),
+                    },
+                }
+            );
+
+            if (res.status !== 204) {
+                const msg = await res.text().catch(() => "");
+                throw new Error(msg || `삭제 실패 (status ${res.status})`);
+            }
+
+            // ✅ 삭제 후 최신 데이터 다시 불러오기
+            fetchPosts();
+        } catch (err) {
+            console.error("삭제 에러:", err);
+            alert(err.message || "삭제 중 오류가 발생했습니다.");
+        }
+    };
 
     if (props.title === "menu1") {
         content = (
