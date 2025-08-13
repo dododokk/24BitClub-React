@@ -118,7 +118,7 @@ function Post() {
             let res;
             if (!prevLiked) {
                 res = await fetch(
-                    `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}/like`,
+                    `https://miraculous-sparkle-production.up.railway.app/api/posts/likes/${postId}`,
                     {
                         method: "POST",
                         headers: {
@@ -130,7 +130,7 @@ function Post() {
                 );
             } else {
                 res = await fetch(
-                    `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}/like`,
+                    `https://miraculous-sparkle-production.up.railway.app/api/posts/likes/${postId}`,
                     {
                         method: "DELETE",
                         headers: {
@@ -176,19 +176,47 @@ function Post() {
                 }
             );
 
-            if (!res.ok) throw new Error("댓글 작성 실패");
+            //if (!res.ok) throw new Error("댓글 작성 실패");
+            if (!res.ok) {
+                const msg = await res.text().catch(() => "");
+                throw new Error(msg || `댓글 작성 실패 (status ${res.status})`);
+            }
 
-            const created = await res.json();
-            const normalized = {
+            // const created = await res.json();
+            // const normalized = {
+            //     commentid: created.id,
+            //     userId: created.user?.id,
+            //     username: created.username,
+            //     content: created.content,
+            //     createdAt: created.createdAt?.replace("T", " ").slice(0, 16) || "",
+            //     mine: true,
+            // };
+            let created = null;
+            const ct = res.headers.get("content-type") || "";
+            if (ct.includes("application/json")) {
+                created = await res.json();
+            }
+            const normalized = created
+             ? {
                 commentid: created.id,
                 userId: created.user?.id,
                 username: created.username,
                 content: created.content,
                 createdAt: created.createdAt?.replace("T", " ").slice(0, 16) || "",
                 mine: true,
+            }
+            : {
+                commentid: `temp-${Date.now()}`,
+                userId: userId,
+                username: "나",
+                content: newComment,
+                createdAt: new Date().toISOString().slice(0, 16).replace("T", " "),
+                mine: true,
             };
+            
 
             setComments((prev) => [...prev, normalized]);
+            setPost((p) => ({ ...p, commentCount: (p?.commentCount ?? 0) + 1 }));
             setNewComment("");
             setTimeout(() => {
                 listRef.current?.scrollTo({
