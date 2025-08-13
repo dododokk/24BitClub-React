@@ -38,7 +38,7 @@ function Post() {
 
         const fetchPost = async () => {
             try {
-                setLoading(true);
+                setLoading((prev)=>(post?prev:true));
                 setError(null);
 
                 const res = await fetch(
@@ -48,7 +48,9 @@ function Post() {
                         headers: {
                             "Content-Type": "application/json",
                             ...(token && { Authorization: `Bearer ${token}` }),
+                            ...(userDistinctId ? { "X-USER-ID": String(userDistinctId) } : {}),
                         },
+                        cache: "no-store",
                     }
                 );
 
@@ -65,7 +67,7 @@ function Post() {
             }
         };
         fetchPost();
-    }, [postId, navigate, token]);
+    }, [postId, navigate, token, userDistinctId]);
 
     useEffect(() => {
         if (!postId) return;
