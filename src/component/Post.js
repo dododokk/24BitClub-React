@@ -167,11 +167,12 @@ function Post() {
             setSubmitPending(true);
 
             const res = await fetch(
-                `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}/comments?userId=${userDistinctId}`, // userId를 쿼리 파라미터로
+                `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}/comments`, // userId를 쿼리 파라미터로
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
+                        "X-USER-ID": String(userDistinctId),
                         ...(token && { Authorization: `Bearer ${token}` }),
                     },
                     body: JSON.stringify(newComment), // 그냥 댓글 내용만 문자열로
