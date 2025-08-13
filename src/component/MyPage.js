@@ -94,32 +94,36 @@ function Content(props) {
 
     let content;
 
-    const handleDelete = async (postId, userId) => {
-        // 서버에 삭제 요청.
-        try {
-            const res = await fetch(
-                `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}?userId=${userId}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    }
-                }
-            );
-
-            if (!res.ok) {
-                throw new Error(`삭제 실패: ${res.status}`);
-            }
-
-            console.log("삭제 성공");
-            // 화면에서 해당 게시글 제거
-            setPosts(prev => prev.filter(post => post.id !== postId));
-
-        } catch (err) {
-            console.error("에러 발생:", err);
-        }
+     const handleDelete = async (postId) => {
+    if (!postId) {
+      console.error("postId 누락");
+      return;
     }
+    if (!window.confirm("정말 삭제할까요?")) return;
+
+    try {
+      const res = await fetch(
+        `https://miraculous-sparkle-production.up.railway.app/api/posts/${postId}?userId=${encodeURIComponent(userDistinctId)}`,
+        {
+          method: "DELETE",
+          headers: {
+            ...(token && { Authorization: `Bearer ${token}` }), // Content-Type 제거
+          },
+        }
+      );
+
+      if (res.status !== 204) {
+        const msg = await res.text().catch(() => "");
+        throw new Error(msg || `삭제 실패 (status ${res.status})`);
+      }
+
+      // ✅ post.id가 아니라 post.postId로 비교해야 함
+      setPosts(prev => prev.filter(p => p.postId !== postId));
+    } catch (err) {
+      console.error("삭제 에러:", err);
+      alert(err.message || "삭제 중 오류가 발생했습니다.");
+    }
+  };
 
     if (props.title === "menu1") {
         content = (
